@@ -2,7 +2,7 @@
 	import type { Load } from '@sveltejs/kit';
 	import sanity from '$lib/sanity';
 
-	export const load: Load = async ({ page }) => {
+	export const load: Load = async () => {
 		try {
 			const result = await sanity.FeaturedTagsQuery();
 
@@ -65,8 +65,6 @@
 				break;
 		}
 	}
-
-	let _hoverID = -1;
 </script>
 
 <div class="h-full px-4 bg-gradient-to-b from-blue-200 to-white">
