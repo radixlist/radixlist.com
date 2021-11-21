@@ -17,6 +17,10 @@
 	export let message: string;
 </script>
 
+<svelte:head>
+	<titel>Radix List | Error page</titel>
+</svelte:head>
+
 <!-- This is an example component -->
 <main class="flex justify-center">
 	<div class="max-w-screen-lg w-full md:grid grid-cols-2 gap-4">
