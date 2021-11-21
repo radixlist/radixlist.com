@@ -1,0 +1,237 @@
+/* Write your global styles here, in PostCSS syntax */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#svelte {
+	height: 100%;
+}
+
+@layer utilities {
+	.sharp-blue-to-black {
+		background: linear-gradient(to right, #000000, #000000 50%, #4b5563 50%);
+	}
+}
+
+/* Mulish Style */
+@font-face {
+	font-family: 'Mulish';
+	src: url('/fonts/mulish/Mulish-Black.woff2?v=1') format('woff2'),
+		url('/fonts/mulish/Mulish-Black.woff?v=1') format('woff'),
+		url('/fonts/mulish/Mulish-Black.otf?v=1') format('opentype');
+	font-display: auto;
+	font-style: normal;
+	font-weight: 900;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Mulish';
+	src: url('/fonts/mulish/Mulish-BlackItalic.woff2?v=1') format('woff2'),
+		url('/fonts/mulish/Mulish-BlackItalic.woff?v=1') format('woff'),
+		url('/fonts/mulish/Mulish-BlackItalic.otf?v=1') format('opentype');
+	font-display: auto;
+	font-style: italic;
+	font-weight: 900;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Mulish';
+	src: url('/fonts/mulish/Mulish-Bold.woff2?v=1') format('woff2'),
+		url('/fonts/mulish/Mulish-Bold.woff?v=1') format('woff'),
+		url('/fonts/mulish/Mulish-Bold.otf?v=1') format('opentype');
+	font-display: auto;
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Mulish';
+	src: url('/fonts/mulish/Mulish-BoldItalic.woff2?v=1') format('woff2'),
+		url('/fonts/mulish/Mulish-BoldItalic.woff?v=1') format('woff'),
+		url('/fonts/mulish/Mulish-BoldItalic.otf?v=1') format('opentype');
+	font-display: auto;
+	font-style: italic;
+	font-weight: 700;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Mulish';
+	src: url('/fonts/mulish/Mulish-ExtraBold.woff2?v=1') format('woff2'),
+		url('/fonts/mulish/Mulish-ExtraBold.woff?v=1') format('woff'),
+		url('/fonts/mulish/Mulish-ExtraBold.otf?v=1') format('opentype');
+	font-display: auto;
+	font-style: normal;
+	font-weight: 800;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Mulish';
+	src: url('/fonts/mulish/Mulish-ExtraBoldItalic.woff2?v=1') format('woff2'),
+		url('/fonts/mulish/Mulish-ExtraBoldItalic.woff?v=1') format('woff'),
+		url('/fonts/mulish/Mulish-ExtraBoldItalic.otf?v=1') format('opentype');
+	font-display: auto;
+	font-style: italic;
+	font-weight: 800;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Mulish';
+	src: url('/fonts/mulish/Mulish-ExtraLight.woff2?v=1') format('woff2'),
+		url('/fonts/mulish/Mulish-ExtraLight.woff?v=1') format('woff'),
+		url('/fonts/mulish/Mulish-ExtraLight.otf?v=1') format('opentype');
+	font-display: auto;
+	font-style: normal;
+	font-weight: 200;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Mulish';
+	src: url('/fonts/mulish/Mulish-ExtraLightItalic.woff2?v=1') format('woff2'),
+		url('/fonts/mulish/Mulish-ExtraLightItalic.woff?v=1') format('woff'),
+		url('/fonts/mulish/Mulish-ExtraLightItalic.otf?v=1') format('opentype');
+	font-display: auto;
+	font-style: italic;
+	font-weight: 200;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Mulish';
+	src: url('/fonts/mulish/Mulish-Italic.woff2?v=1') format('woff2'),
+		url('/fonts/mulish/Mulish-Italic.woff?v=1') format('woff'),
+		url('/fonts/mulish/Mulish-Italic.otf?v=1') format('opentype');
+	font-display: auto;
+	font-style: italic;
+	font-weight: 400;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Mulish';
+	src: url('/fonts/mulish/Mulish-Light.woff2?v=1') format('woff2'),
+		url('/fonts/mulish/Mulish-Light.woff?v=1') format('woff'),
+		url('/fonts/mulish/Mulish-Light.otf?v=1') format('opentype');
+	font-display: auto;
+	font-style: normal;
+	font-weight: 300;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Mulish';
+	src: url('/fonts/mulish/Mulish-LightItalic.woff2?v=1') format('woff2'),
+		url('/fonts/mulish/Mulish-LightItalic.woff?v=1') format('woff'),
+		url('/fonts/mulish/Mulish-LightItalic.otf?v=1') format('opentype');
+	font-display: auto;
+	font-style: italic;
+	font-weight: 300;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Mulish';
+	src: url('/fonts/mulish/Mulish-Medium.woff2?v=1') format('woff2'),
+		url('/fonts/mulish/Mulish-Medium.woff?v=1') format('woff'),
+		url('/fonts/mulish/Mulish-Medium.otf?v=1') format('opentype');
+	font-display: auto;
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Mulish';
+	src: url('/fonts/mulish/Mulish-MediumItalic.woff2?v=1') format('woff2'),
+		url('/fonts/mulish/Mulish-MediumItalic.woff?v=1') format('woff'),
+		url('/fonts/mulish/Mulish-MediumItalic.otf?v=1') format('opentype');
+	font-display: auto;
+	font-style: italic;
+	font-weight: 500;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Mulish';
+	src: url('/fonts/mulish/Mulish-Regular.woff2?v=1') format('woff2'),
+		url('/fonts/mulish/Mulish-Regular.woff?v=1') format('woff'),
+		url('/fonts/mulish/Mulish-Regular.otf?v=1') format('opentype');
+	font-display: auto;
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Mulish';
+	src: url('/fonts/mulish/Mulish-SemiBold.woff2?v=1') format('woff2'),
+		url('/fonts/mulish/Mulish-SemiBold.woff?v=1') format('woff'),
+		url('/fonts/mulish/Mulish-SemiBold.otf?v=1') format('opentype');
+	font-display: auto;
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Mulish';
+	src: url('/fonts/mulish/Mulish-SemiBoldItalic.woff2?v=1') format('woff2'),
+		url('/fonts/mulish/Mulish-SemiBoldItalic.woff?v=1') format('woff'),
+		url('/fonts/mulish/Mulish-SemiBoldItalic.otf?v=1') format('opentype');
+	font-display: auto;
+	font-style: italic;
+	font-weight: 600;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Philosopher';
+	src: url('/fonts/philosopher/Philosopher-Bold.woff2?v=1') format('woff2'),
+		url('/fonts/philosopher/Philosopher-Bold.woff?v=1') format('woff'),
+		url('/fonts/philosopher/Philosopher-Bold.otf?v=1') format('opentype');
+	font-display: auto;
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Philosopher';
+	src: url('/fonts/philosopher/Philosopher-BoldItalic.woff2?v=1') format('woff2'),
+		url('/fonts/philosopher/Philosopher-BoldItalic.woff?v=1') format('woff'),
+		url('/fonts/philosopher/Philosopher-BoldItalic.otf?v=1') format('opentype');
+	font-display: auto;
+	font-style: italic;
+	font-weight: 700;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Philosopher';
+	src: url('/fonts/philosopher/Philosopher-Italic.woff2?v=1') format('woff2'),
+		url('/fonts/philosopher/Philosopher-Italic.woff?v=1') format('woff'),
+		url('/fonts/philosopher/Philosopher-Italic.otf?v=1') format('opentype');
+	font-display: auto;
+	font-style: italic;
+	font-weight: 400;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Philosopher';
+	src: url('/fonts/philosopher/Philosopher-Regular.woff2?v=1') format('woff2'),
+		url('/fonts/philosopher/Philosopher-Regular.woff?v=1') format('woff'),
+		url('/fonts/philosopher/Philosopher-Regular.otf?v=1') format('opentype');
+	font-display: auto;
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+}
