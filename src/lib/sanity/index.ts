@@ -1,10 +1,10 @@
 import type { SanityClient } from '@sanity/client';
-import type { ItemsResponse, PaginationInput } from './item';
+import type { ItemsResponse, ItemResponse, PaginationInput } from './item';
 import type { SearchResponse } from './search';
 import type { FeaturedTagsResponse } from './tag';
 import { Search } from './search';
 import sanityClient from '@sanity/client';
-import { Items, ItemsByTag, ItemsByPerson } from './item';
+import { Items, ItemsByTag, ItemsByPerson, ItemBySlug } from './item';
 import { FeaturedTags } from './tag';
 
 class Sanity {
@@ -47,6 +47,10 @@ class Sanity {
 		paginationInput: PaginationInput
 	): Promise<ItemsResponse> {
 		return this.client.fetch<ItemsResponse>(ItemsByPerson(person, paginationInput));
+	}
+
+	public ItemBySlugQuery(slug: string): Promise<ItemResponse> {
+		return this.client.fetch<ItemResponse>(ItemBySlug(slug));
 	}
 
 	public SearchQuery(search: string): Promise<SearchResponse> {

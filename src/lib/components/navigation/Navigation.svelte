@@ -6,14 +6,14 @@
 <header class="flex justify-center">
 	<div class="max-w-screen-lg w-full flex justify-start">
 		<div class="py-4">
-			<a href="#" class="flex items-center">
+			<a href="/" class="flex items-center">
 				<img src={Logo} alt="Radix List Logo" />
 				<span class="font-philosopher font-bold ml-4 text-2xl text-black">Radix List</span>
 			</a>
 		</div>
 		<div class="flex items-center ml-10">
 			<a
-				href="#"
+				href="https://docs.google.com/forms/d/19fVvtpMPp5k8ayz_U9veTNTutzHRo0HDiupP19a7GYI"
 				target="_blank"
 				class="navigation-item-wrapper box-border px-4 hidden md:inline-block cursor-pointer mt-4"
 				aria-haspopup="false"
@@ -25,12 +25,11 @@
 					class:active={_hoverID === 0}
 					style="-webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% 100%; transition-property: background; background-position: 100%;"
 				>
-					Add initiative
+					Add or edit initiative
 				</span>
 			</a>
 			<a
-				href="#"
-				target="_blank"
+				href="/promote"
 				class="navigation-item-wrapper box-border px-4 hidden md:inline-block cursor-pointer mt-4"
 				aria-haspopup="false"
 				on:mouseenter={() => (_hoverID = 1)}

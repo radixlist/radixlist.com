@@ -16,13 +16,21 @@ export type Item = {
 	shortDescription: string;
 	description: PortableTextBlocks;
 	owners: Person[];
-	link: string;
+	links: {
+		url: string;
+		title: string;
+		image: string;
+	}[];
 	promoted: boolean;
 };
 
 export type ItemsResponse = {
 	items: Item[];
 	numberOfItems: number;
+};
+
+export type ItemResponse = {
+	item: Item;
 };
 
 export type PaginationInput = {
@@ -48,14 +56,18 @@ export const Items = (paginationInput: PaginationInput = { page: 1, limit: 20 })
         'url': image.asset->url,
         'caption': image.asset->url
       },
-      'owners': owners[]->{
+      'owners': coalesce(owners[]->{
         name,
         wallet,
         discordHandle,
         twitter,
         telegram
-      },
-      link,
+      }, []),
+      'links': coalesce(links[]{
+        'url': url,
+        'title': linkType->title,
+        'image': linkType->icon.asset->url
+      }, []),
       'promoted': coalesce(count(promoted[expires >= '${today}']) > 0, false)
     },
     'numberOfItems': count(*[_type == 'item'])
@@ -84,14 +96,18 @@ export const ItemsByTag = (
         'url': image.asset->url,
         'caption': image.asset->url
       },
-      'owners': owners[]->{
+      'owners': coalesce(owners[]->{
         name,
         wallet,
         discordHandle,
         twitter,
         telegram
-      },
-      link,
+      }, []),
+      'links': coalesce(links[]{
+        'url': url,
+        'title': linkType->title,
+        'image': linkType->icon.asset->url
+      }, []),
       'promoted': coalesce(count(promoted[expires >= '${today}']) > 0, false)
     },
     'numberOfItems': count(*[_type == 'item' && tags[]->slug.current match '${tag}'])
@@ -120,17 +136,55 @@ export const ItemsByPerson = (
         'url': image.asset->url,
         'caption': image.asset->url
       },
-      'owners': owners[]->{
+      'owners': coalesce(owners[]->{
         name,
         wallet,
         discordHandle,
         twitter,
         telegram
-      },
-      link,
+      }, []),
+      'links': coalesce(links[]{
+        'url': url,
+        'title': linkType->title,
+        'image': linkType->icon.asset->url
+      }, []),
       'promoted': coalesce(count(promoted[expires >= '${today}']) > 0, false)
     },
     'numberOfItems': count(*[_type == 'item' && owners[]->slug.current match '${person}'])
+  }
+  `;
+};
+
+export const ItemBySlug = (slug: string): string => {
+	const today = new Date().toISOString().split('T')[0];
+	return groq`
+  {
+    'item': *[_type == 'item' && slug.current == '${slug}'] [0] {
+      _id,
+      _updatedAt,
+      title,
+      'slug': slug.current,
+      'shortDescription': coalesce(shortDescription, ''),
+      'description': coalesce(description, []),
+      'tags': tags[]->{ _id, title, featured },
+      'image': {
+        'url': image.asset->url,
+        'caption': image.asset->url
+      },
+      'owners': coalesce(owners[]->{
+        name,
+        wallet,
+        discordHandle,
+        twitter,
+        telegram
+      }, []),
+      'links': coalesce(links[]{
+        'url': url,
+        'title': linkType->title,
+        'image': linkType->icon.asset->url
+      }, []),
+      'promoted': coalesce(count(promoted[expires >= '${today}']) > 0, false)
+    }
   }
   `;
 };

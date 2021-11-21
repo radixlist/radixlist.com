@@ -12,7 +12,7 @@
 	class:!bg-pink-200={item.promoted}
 	class:!border-pink-500={item.promoted}
 >
-	<div class="pr-4 flex items-center">
+	<div class="pr-4 flex items-center flex-shrink-0">
 		{#if item.image.url}
 			<img src={item.image.url} alt={item.image.caption} class="w-16 h-16" />
 		{:else}
@@ -21,7 +21,7 @@
 	</div>
 	<div>
 		<h1 class="font-mulish text-xl pb-2">{item.title}</h1>
-		<div class="flex gap-2">
+		<div class="flex gap-2 flex-wrap">
 			{#if item.promoted}
 				<a
 					href={`/tag/promoted`}
