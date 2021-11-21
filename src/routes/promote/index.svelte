@@ -2,6 +2,10 @@
 	import Breadcrumb from '$lib/components/breadcrumb/Breadcrumb.svelte';
 </script>
 
+<svelte:head>
+	<title>Radix List | Promote initiative</title>
+</svelte:head>
+
 <main class="flex justify-center">
 	<div class="max-w-screen-lg w-full">
 		<Breadcrumb current="Promote initiative" />

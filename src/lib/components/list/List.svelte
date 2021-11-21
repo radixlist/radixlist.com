@@ -7,7 +7,7 @@
 </script>
 
 <main class="flex justify-center">
-	<div class="max-w-screen-lg w-full md:grid grid-cols-4 gap-4 grid">
+	<div class="max-w-screen-lg w-full md:grid grid-cols-4 gap-4">
 		{#if items.length > 0}
 			<div class="col-span-3">
 				{#if numberOfItems > 1}
