@@ -30,7 +30,7 @@
 </script>
 
 <svelte:head>
-	<titel>Radix List | {item.title}</titel>
+	<title>Radix List | {item.title}</title>
 </svelte:head>
 
 <main class="flex justify-center">

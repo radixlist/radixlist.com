@@ -38,7 +38,7 @@
 </script>
 
 <svelte:head>
-	<titel>Radix List | Explore Radix community projects | Tags</titel>
+	<title>Radix List | Explore Radix community projects | Tags</title>
 </svelte:head>
 
 <List {items} {numberOfItems} {pageNumber}>
