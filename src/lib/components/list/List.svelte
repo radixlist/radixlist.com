@@ -4,7 +4,6 @@
 
 	export let items: Item[];
 	export let numberOfItems: number;
-	export let pageNumber: number;
 </script>
 
 <main class="flex justify-center">
