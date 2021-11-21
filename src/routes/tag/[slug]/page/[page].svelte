@@ -37,6 +37,10 @@
 	export let pageNumber: number;
 </script>
 
+<svelte:head>
+	<titel>Radix List | Explore Radix community projects | Tags</titel>
+</svelte:head>
+
 <List {items} {numberOfItems} {pageNumber}>
 	<Tag slot="pagination" {numberOfItems} {slug} {pageNumber} />
 </List>

@@ -33,6 +33,10 @@
 	export let pageNumber: number;
 </script>
 
+<svelte:head>
+	<titel>Radix List | Explore Radix community projects</titel>
+</svelte:head>
+
 <List {items} {numberOfItems} {pageNumber}>
 	<Normal slot="pagination" {numberOfItems} {pageNumber} />
 </List>

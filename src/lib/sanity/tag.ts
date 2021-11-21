@@ -15,12 +15,12 @@ export type FeaturedTagsResponse = {
 export const FeaturedTags = (): string => {
 	return groq`
   {
-    'tags': *[_type == 'tag' && featured == true] | order(_createdAt desc) {
+    'tags': coalesce(*[_type == 'tag' && featured == true] | order(_createdAt desc) {
 			_id,
 			_type,
 			title,
 			'slug': slug.current,
 			featured
-		}
+		}, [])
 	}`;
 };

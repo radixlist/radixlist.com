@@ -33,6 +33,10 @@
 	export let slug: string;
 </script>
 
+<svelte:head>
+	<titel>Radix List | Explore Radix community projects | Tags</titel>
+</svelte:head>
+
 <List {items} {numberOfItems} pageNumber={1}>
 	<Tag slot="pagination" {numberOfItems} {slug} pageNumber={1} />
 </List>

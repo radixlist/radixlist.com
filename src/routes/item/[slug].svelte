@@ -29,6 +29,10 @@
 	export let item: Item;
 </script>
 
+<svelte:head>
+	<titel>Radix List | {item.title}</titel>
+</svelte:head>
+
 <main class="flex justify-center">
 	<div class="max-w-screen-lg w-full">
 		<Breadcrumb current={item.title} />
