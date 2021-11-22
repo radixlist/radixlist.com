@@ -26,7 +26,7 @@
 	import PortableText from '@portabletext/svelte';
 	import PersonIcon from '$assets/Person.svg';
 	import UnknownItemIcon from '$assets/UnknownItem.svg';
-	import Tag from '$lib/components/item/tag.svelte';
+	import Tag from '$lib/components/item/Tag.svelte';
 	export let item: Item;
 </script>
 
