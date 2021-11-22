@@ -9,6 +9,10 @@ body,
 	height: 100%;
 }
 
+body {
+	overflow-y: scroll;
+}
+
 @layer utilities {
 	.sharp-blue-to-black {
 		background: linear-gradient(to right, #000000, #000000 50%, #4b5563 50%);

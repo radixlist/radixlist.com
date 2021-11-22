@@ -26,6 +26,7 @@
 	import PortableText from '@portabletext/svelte';
 	import PersonIcon from '$assets/Person.svg';
 	import UnknownItemIcon from '$assets/UnknownItem.svg';
+	import Tag from '$lib/components/item/tag.svelte';
 	export let item: Item;
 </script>
 
@@ -48,23 +49,10 @@
 				<h1 class="text-4xl md:text-6xl font-philosopher text-center md:text-left">{item.title}</h1>
 				<div class="flex gap-4 pt-4">
 					{#if item.promoted}
-						<a
-							href={`/tag/promoted`}
-							class="inline-block px-4 py-0.5 md:py-2 bg-pink-300 text-pink-700 font-mulish text-sm rounded-md transition-colors duration-200"
-						>
-							<span class="text-pink-700 pr-2">#</span>Promoted
-						</a>
+						<Tag promoted={item.promoted}>Promoted</Tag>
 					{/if}
 					{#each item.tags as tag}
-						<a
-							href={`/tag/${tag.slug}`}
-							class="inline-block px-4 py-0.5 md:py-2 bg-zinc-300 font-mulish text-sm rounded-md transition-colors duration-200"
-							class:text-pink-700={item.promoted}
-							class:!bg-pink-300={item.promoted}
-						>
-							<span class="text-blue-700 pr-2" class:text-pink-700={item.promoted}>#</span
-							>{tag.title}
-						</a>
+						<Tag promoted={item.promoted} href={`/tag/${tag.slug}`}>{tag.title}</Tag>
 					{/each}
 				</div>
 			</div>

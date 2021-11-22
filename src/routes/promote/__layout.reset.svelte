@@ -26,7 +26,11 @@
 	import Footer from '$lib/components/navigation/Footer.svelte';
 </script>
 
-<div class="h-full px-4 bg-gradient-to-b from-blue-200 to-white flex flex-col">
+<div class="absolute bg-gradient-to-br from-blue-200 to-transparent h-1/2 w-full top-0">
+	<div class="bg-gradient-to-t from-white to-transparent w-full h-full" />
+</div>
+
+<div class="h-full px-4 flex flex-col relative">
 	<Navigation />
 	<div class="flex-grow pb-8">
 		<slot />

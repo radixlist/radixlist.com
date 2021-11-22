@@ -11,10 +11,10 @@
 		{#if items.length > 0}
 			<div class="col-span-3">
 				{#if numberOfItems > 1}
-					<span class="font-italic font-mulish text-sm">Found {numberOfItems} results</span>
+					<span class="italic font-mulish text-sm">Found {numberOfItems} results</span>
 				{/if}
 				{#if numberOfItems === 1}
-					<span class="font-italic font-mulish text-sm">Found {numberOfItems} result</span>
+					<span class="italic font-mulish text-sm">Found {numberOfItems} result</span>
 				{/if}
 				{#each items as item}
 					<div class="py-4">
