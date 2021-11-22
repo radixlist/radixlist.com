@@ -41,6 +41,6 @@
 	<title>Radix List | Explore Radix community projects | Tags</title>
 </svelte:head>
 
-<List {items} {numberOfItems} {pageNumber}>
+<List {items} {numberOfItems}>
 	<Tag slot="pagination" {numberOfItems} {slug} {pageNumber} />
 </List>

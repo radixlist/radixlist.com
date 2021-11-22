@@ -9,7 +9,7 @@
 <main class="flex justify-center">
 	<div class="max-w-screen-lg w-full">
 		<Breadcrumb current="Promote initiative" />
-		<div>
+		<div class="break-words">
 			<h1 class="text-6xl font-philosopher py-10">Promote initiatve: Get more visitors</h1>
 			<div class="py-2 text-xl">
 				The goal of radixlist.com is to provide a service where all community projects, initiatives
@@ -31,9 +31,9 @@
 				In the message paste the link to the initiative you want to promote.
 			</div>
 			<div class="py-2 text-xl">
-				We check and promote initiatives on a daily basis. The process is manual for now.
+				We check and promote initiatives on a daily basis. Today the process is manual, but we hope
+				to see this automated in a soon future!
 			</div>
-			<div class="py-2 text-xl">// Kansuler</div>
 		</div>
 	</div>
 </main>

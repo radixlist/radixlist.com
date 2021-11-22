@@ -1,17 +1,19 @@
 <script lang="ts">
 	import Logo from '$assets/Logo.svg';
+	import Mobile from './Mobile.svelte';
+
 	let _hoverID = -1;
 </script>
 
-<header class="flex justify-center">
-	<div class="max-w-screen-lg w-full flex justify-start">
+<header class="flex justify-center relative mt-4">
+	<div class="max-w-screen-lg w-full flex justify-between md:justify-start">
 		<div class="py-4">
 			<a href="/" class="flex items-center">
 				<img src={Logo} alt="Radix List Logo" />
 				<span class="font-philosopher font-bold ml-4 text-2xl text-black">Radix List</span>
 			</a>
 		</div>
-		<div class="flex items-center ml-10">
+		<div class="items-center ml-10 hidden md:flex">
 			<a
 				href="https://docs.google.com/forms/d/19fVvtpMPp5k8ayz_U9veTNTutzHRo0HDiupP19a7GYI"
 				target="_blank"
@@ -59,6 +61,9 @@
 					Statistics
 				</span>
 			</a>
+		</div>
+		<div class="md:hidden">
+			<Mobile />
 		</div>
 	</div>
 </header>
