@@ -37,6 +37,6 @@
 	<title>Radix List | Explore Radix community projects</title>
 </svelte:head>
 
-<List {items} {numberOfItems} {pageNumber}>
+<List {items} {numberOfItems}>
 	<Normal slot="pagination" {numberOfItems} {pageNumber} />
 </List>

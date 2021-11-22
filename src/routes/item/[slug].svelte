@@ -26,6 +26,7 @@
 	import PortableText from '@portabletext/svelte';
 	import PersonIcon from '$assets/Person.svg';
 	import UnknownItemIcon from '$assets/UnknownItem.svg';
+	import Tag from '$lib/components/item/Tag.svelte';
 	export let item: Item;
 </script>
 
@@ -36,7 +37,7 @@
 <main class="flex justify-center">
 	<div class="max-w-screen-lg w-full">
 		<Breadcrumb current={item.title} />
-		<div class="flex mt-10">
+		<div class="flex flex-col md:flex-row items-center mt-10">
 			<div class="">
 				{#if item.image.url}
 					<img src={item.image.url} alt={item.image.caption} class="w-40 h-40" />
@@ -44,27 +45,14 @@
 					<img src={UnknownItemIcon} alt="Unknown item icon" class="w-40 h-40" />
 				{/if}
 			</div>
-			<div class="pl-8">
-				<h1 class="text-6xl font-philosopher">{item.title}</h1>
+			<div class="md:pl-8 pt-4 md:pt-0">
+				<h1 class="text-4xl md:text-6xl font-philosopher text-center md:text-left">{item.title}</h1>
 				<div class="flex gap-4 pt-4">
 					{#if item.promoted}
-						<a
-							href={`/tag/promoted`}
-							class="inline-block px-4 py-2 bg-pink-300 text-pink-700 font-mulish text-sm rounded-md transition-colors duration-200"
-						>
-							<span class="text-pink-700 pr-2">#</span>Promoted
-						</a>
+						<Tag promoted={item.promoted}>Promoted</Tag>
 					{/if}
 					{#each item.tags as tag}
-						<a
-							href={`/tag/${tag.slug}`}
-							class="inline-block px-4 py-2 bg-zinc-300 font-mulish text-sm rounded-md transition-colors duration-200"
-							class:text-pink-700={item.promoted}
-							class:!bg-pink-300={item.promoted}
-						>
-							<span class="text-blue-700 pr-2" class:text-pink-700={item.promoted}>#</span
-							>{tag.title}
-						</a>
+						<Tag promoted={item.promoted} href={`/tag/${tag.slug}`}>{tag.title}</Tag>
 					{/each}
 				</div>
 			</div>

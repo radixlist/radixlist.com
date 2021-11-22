@@ -51,7 +51,7 @@ export const Items = (paginationInput: PaginationInput = { page: 1, limit: 20 })
       'slug': slug.current,
       'shortDescription': coalesce(shortDescription, ''),
       'description': coalesce(description, []),
-      'tags': tags[]->{ _id, title, featured },
+      'tags': tags[]->{ _id, title, featured, 'slug': slug.current },
       'image': {
         'url': image.asset->url,
         'caption': image.asset->url
@@ -91,7 +91,7 @@ export const ItemsByTag = (
       'slug': slug.current,
       'shortDescription': coalesce(shortDescription, ''),
       'description': coalesce(description, []),
-      'tags': tags[]->{ _id, title, featured },
+      'tags': tags[]->{ _id, title, featured, 'slug': slug.current },
       'image': {
         'url': image.asset->url,
         'caption': image.asset->url
@@ -131,7 +131,7 @@ export const ItemsByPerson = (
       'slug': slug.current,
       'shortDescription': coalesce(shortDescription, ''),
       'description': coalesce(description, []),
-      'tags': tags[]->{ _id, title, featured },
+      'tags': tags[]->{ _id, title, featured, 'slug': slug.current },
       'image': {
         'url': image.asset->url,
         'caption': image.asset->url
@@ -166,7 +166,7 @@ export const ItemBySlug = (slug: string): string => {
       'slug': slug.current,
       'shortDescription': coalesce(shortDescription, ''),
       'description': coalesce(description, []),
-      'tags': tags[]->{ _id, title, featured },
+      'tags': tags[]->{ _id, title, featured, 'slug': slug.current },
       'image': {
         'url': image.asset->url,
         'caption': image.asset->url

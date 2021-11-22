@@ -32,6 +32,8 @@
 	import UnknownItemIcon from '$assets/UnknownItem.svg';
 	import TagIcon from '$assets/Tag.svg';
 	import PersonIcon from '$assets/Person.svg';
+	import Footer from '$lib/components/navigation/Footer.svelte';
+	import TagComponent from '$lib/components/item/Tag.svelte';
 
 	export let tags: Tag[];
 
@@ -67,9 +69,13 @@
 	}
 </script>
 
-<div class="h-full px-4 bg-gradient-to-b from-blue-200 to-white">
+<div class="absolute bg-gradient-to-br from-blue-200 to-transparent h-1/2 w-full top-0">
+	<div class="bg-gradient-to-t from-white to-transparent w-full h-full" />
+</div>
+
+<div class="h-full px-4 flex flex-col min-h-full relative">
 	<Navigation />
-	<div class="flex justify-center pt-16">
+	<div class="flex justify-center md:pt-16">
 		<div class="max-w-screen-lg w-full">
 			<div class="pb-4">
 				<h1 class="font-philosopher text-4xl md:text-6xl text-gray-800">
@@ -129,18 +135,16 @@
 			</div>
 			<div class="py-2 flex gap-2 flex-wrap">
 				{#each tags as tag}
-					<a
-						href={`/tag/${tag.slug}`}
-						class="inline-block py-2 px-4 bg-blue-200 hover:bg-blue-300 font-mulish rounded-md transition-colors duration-200"
-					>
-						<span class="text-blue-700 pr-2">#</span>{tag.title}
-					</a>
+					<TagComponent promoted={false} href={`/tag/${tag.slug}`}>{tag.title}</TagComponent>
 				{/each}
 			</div>
 			<div class="border-b border-blue-300 my-2" />
 		</div>
 	</div>
-	<slot />
+	<div class="flex-grow pb-8">
+		<slot />
+	</div>
+	<Footer />
 </div>
 
 <style lang="scss">

@@ -37,6 +37,6 @@
 	<title>Radix List | Explore Radix community projects | People</title>
 </svelte:head>
 
-<List {items} {numberOfItems} pageNumber={1}>
+<List {items} {numberOfItems}>
 	<Tag slot="pagination" {numberOfItems} {slug} pageNumber={1} />
 </List>
