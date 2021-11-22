@@ -5,9 +5,9 @@
 	let _hoverID = -1;
 </script>
 
-<header class="flex justify-center relative mt-4">
-	<div class="max-w-screen-lg w-full flex justify-between md:justify-start">
-		<div class="py-4">
+<header class="flex justify-center relative">
+	<div class="max-w-screen-lg w-full flex justify-between md:justify-start relative my-4">
+		<div>
 			<a href="/" class="flex items-center">
 				<img src={Logo} alt="Radix List Logo" />
 				<span class="font-philosopher font-bold ml-4 text-2xl text-black">Radix List</span>
@@ -62,7 +62,7 @@
 				</span>
 			</a>
 		</div>
-		<div class="md:hidden">
+		<div class="md:hidden flex items-center">
 			<Mobile />
 		</div>
 	</div>

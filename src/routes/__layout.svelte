@@ -70,7 +70,7 @@
 
 <div class="h-full px-4 bg-gradient-to-b from-blue-200 to-white flex flex-col min-h-full">
 	<Navigation />
-	<div class="flex justify-center pt-16">
+	<div class="flex justify-center md:pt-16">
 		<div class="max-w-screen-lg w-full">
 			<div class="pb-4">
 				<h1 class="font-philosopher text-4xl md:text-6xl text-gray-800">
@@ -132,7 +132,7 @@
 				{#each tags as tag}
 					<a
 						href={`/tag/${tag.slug}`}
-						class="inline-block py-2 px-4 bg-blue-200 hover:bg-blue-300 font-mulish rounded-md transition-colors duration-200"
+						class="inline-block py-2 px-4 text-sm md:text-base bg-blue-200 hover:bg-blue-300 font-mulish rounded-md transition-colors duration-200"
 					>
 						<span class="text-blue-700 pr-2">#</span>{tag.title}
 					</a>
