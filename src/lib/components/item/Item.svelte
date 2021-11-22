@@ -14,9 +14,17 @@
 >
 	<div class="pr-4 flex items-center flex-shrink-0">
 		{#if item.image.url}
-			<img src={item.image.url} alt={item.image.caption} class="w-16 h-16" />
+			<img
+				src={item.image.url}
+				alt={item.image.caption}
+				class="w-16 h-16 rounded-md overflow-hidden"
+			/>
 		{:else}
-			<img src={UnknownItemIcon} alt="Unknown item icon" class="w-16 h-16" />
+			<img
+				src={UnknownItemIcon}
+				alt="Unknown item icon"
+				class="w-16 h-16 rounded-md overflow-hidden"
+			/>
 		{/if}
 	</div>
 	<div>

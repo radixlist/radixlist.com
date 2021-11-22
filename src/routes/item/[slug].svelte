@@ -38,7 +38,7 @@
 	<div class="max-w-screen-lg w-full">
 		<Breadcrumb current={item.title} />
 		<div class="flex flex-col md:flex-row items-center mt-10">
-			<div class="">
+			<div class="rounded-md overflow-hidden">
 				{#if item.image.url}
 					<img src={item.image.url} alt={item.image.caption} class="w-40 h-40" />
 				{:else}
@@ -47,7 +47,7 @@
 			</div>
 			<div class="md:pl-8 pt-4 md:pt-0">
 				<h1 class="text-4xl md:text-6xl font-philosopher text-center md:text-left">{item.title}</h1>
-				<div class="flex gap-4 pt-4">
+				<div class="flex flex-wrap gap-4 pt-4">
 					{#if item.promoted}
 						<Tag promoted={item.promoted}>Promoted</Tag>
 					{/if}
@@ -80,7 +80,7 @@
 			{/each}
 		</div>
 		<div class="mt-8 border-b border-blue-300 font-mulish text-2xl pb-2">Links</div>
-		<div class="flex gap-4 pt-4">
+		<div class="flex flex-col md:flex-row flex-wrap gap-4 pt-4">
 			{#if item.links.length === 0}
 				<div class="italic font-mulish text-sm">No links found for this initiative</div>
 			{/if}
@@ -88,7 +88,7 @@
 				<a
 					href={link.url}
 					target="_blank"
-					class="inline-flex gap-4 items-center px-4 py-1 bg-blue-300 border border-blue-500 hover:bg-blue-500 font-mulish rounded-md transition-colors duration-200"
+					class="md:inline-flex flex gap-4 items-center px-4 md:py-2 py-0.5 bg-blue-300 border border-blue-500 hover:bg-blue-500 font-mulish rounded-md transition-colors duration-200"
 				>
 					<div>
 						<img src={link.image} alt={link.title} class="h-8 w-8" />
