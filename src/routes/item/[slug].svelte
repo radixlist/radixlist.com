@@ -38,7 +38,7 @@
 	<div class="max-w-screen-lg w-full">
 		<Breadcrumb current={item.title} />
 		<div class="flex flex-col md:flex-row items-center mt-10">
-			<div class="">
+			<div class="rounded-md overflow-hidden">
 				{#if item.image.url}
 					<img src={item.image.url} alt={item.image.caption} class="w-40 h-40" />
 				{:else}
