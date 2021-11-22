@@ -65,7 +65,7 @@ export const Items = (paginationInput: PaginationInput = { page: 1, limit: 20 })
       }, []),
       'links': coalesce(links[]{
         'url': url,
-        'title': linkType->title,
+        'title': coalesce(title, linkType->title),
         'image': linkType->icon.asset->url
       }, []),
       'promoted': coalesce(count(promoted[expires >= '${today}']) > 0, false)
@@ -105,7 +105,7 @@ export const ItemsByTag = (
       }, []),
       'links': coalesce(links[]{
         'url': url,
-        'title': linkType->title,
+        'title': coalesce(title, linkType->title),
         'image': linkType->icon.asset->url
       }, []),
       'promoted': coalesce(count(promoted[expires >= '${today}']) > 0, false)
@@ -145,7 +145,7 @@ export const ItemsByPerson = (
       }, []),
       'links': coalesce(links[]{
         'url': url,
-        'title': linkType->title,
+        'title': coalesce(title, linkType->title),
         'image': linkType->icon.asset->url
       }, []),
       'promoted': coalesce(count(promoted[expires >= '${today}']) > 0, false)
@@ -180,7 +180,7 @@ export const ItemBySlug = (slug: string): string => {
       }, []),
       'links': coalesce(links[]{
         'url': url,
-        'title': linkType->title,
+        'title': coalesce(title, linkType->title),
         'image': linkType->icon.asset->url
       }, []),
       'promoted': coalesce(count(promoted[expires >= '${today}']) > 0, false)
