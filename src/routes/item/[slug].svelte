@@ -32,6 +32,12 @@
 
 <svelte:head>
 	<title>Radix List | {item.title}</title>
+	<meta property="og:title" content={item.title} />
+	<meta property="og:image" content={item.image.url} />
+	<meta name="twitter:title" content={item.title} />
+	<meta name="twitter:description" content={item.shortDescription} />
+	<meta name="twitter:image" content={item.image.url} />
+	<meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
 <main class="flex justify-center">
@@ -55,10 +61,13 @@
 						<Tag promoted={item.promoted} href={`/tag/${tag.slug}`}>{tag.title}</Tag>
 					{/each}
 				</div>
+				<div class="pt-2">
+					{item.shortDescription}
+				</div>
 			</div>
 		</div>
 		<div class="mt-8 border-b border-blue-300 font-mulish text-2xl pb-2">Overview</div>
-		<div class="py-4">
+		<div class="py-4 portable-block">
 			<PortableText blocks={item.description} />
 		</div>
 		<div class="mt-8 border-b border-blue-300 font-mulish text-2xl pb-2">
@@ -101,3 +110,9 @@
 		</div>
 	</div>
 </main>
+
+<style lang="scss">
+	.portable-block :global(p) {
+		@apply py-2;
+	}
+</style>

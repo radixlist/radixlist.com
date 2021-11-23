@@ -4,6 +4,15 @@
 
 <svelte:head>
 	<title>Radix List | Promote initiative</title>
+	<meta property="og:title" content="Radix List | Promote initiative" />
+	<meta property="og:image" content="/favicon.png" />
+	<meta name="twitter:title" content="Radix List | Promote initiative" />
+	<meta
+		name="twitter:description"
+		content="radixlist.com is a service where all community projects, initiatives and social gatherings is gathered in an easily searchable service."
+	/>
+	<meta name="twitter:image" content="/favicon.png" />
+	<meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
 <main class="flex justify-center">

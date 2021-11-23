@@ -77,7 +77,7 @@
 </script>
 
 <div
-	class="bg-blue-200 pl-4 pr-8 py-4 flex justify-start items-center border border-transparent rounded-md transition-colors duration-100 shadow-md"
+	class="bg-white pl-4 pr-8 py-4 flex justify-start items-center border border-transparent rounded-md transition-colors duration-100 shadow-md"
 	bind:this={container}
 >
 	<img src={Find} class="w-6 h-6" alt="Search icon" />
