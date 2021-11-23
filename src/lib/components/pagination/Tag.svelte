@@ -1,14 +1,16 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	export let slug: string;
 	export let pageNumber: number;
 	export let numberOfItems: number;
+	let query = $page.query.toString() ? `${$page.query.toString()}` : '';
 </script>
 
 <div class="flex flex-col items-center my-12">
 	<div class="flex text-gray-700">
 		{#if pageNumber > 1}
 			<a
-				href={`/tag/${slug}/page/${pageNumber - 1}`}
+				href={`/tag/${slug}/page/${pageNumber - 1}${query}`}
 				class="h-12 w-12 mr-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer"
 			>
 				<svg
@@ -30,7 +32,7 @@
 		<div class="flex h-12 font-medium rounded-full bg-gray-200">
 			{#each Array(Math.ceil(numberOfItems / 20)) as _, index}
 				<a
-					href={`/tag/${slug}/page/${index + 1}`}
+					href={`/tag/${slug}/page/${index + 1}${query}`}
 					class="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in rounded-full"
 					class:bg-blue-300={index === pageNumber - 1}
 				>
@@ -40,7 +42,7 @@
 		</div>
 		{#if pageNumber < Math.ceil(numberOfItems / 20)}
 			<a
-				href={`/tag/${slug}/page/${pageNumber + 1}`}
+				href={`/tag/${slug}/page/${pageNumber + 1}${query}`}
 				class="h-12 w-12 ml-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer"
 			>
 				<svg

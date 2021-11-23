@@ -5,14 +5,23 @@
 	export const load: Load = async ({ page }) => {
 		try {
 			const slug = page.params.slug;
-			const result = await sanity.ItemsByPersonQuery(slug, { page: 1, limit: 20 });
+			const { query } = page;
+			const sort = query.get('sort') ?? '_createdAt';
+			const order = query.get('order') ?? 'desc';
+			const result = await sanity.ItemsByPersonQuery(
+				slug,
+				{ page: 1, limit: 20 },
+				`${sort} ${order}`
+			);
 
 			return {
 				status: 200,
 				props: {
 					items: result.items,
 					numberOfItems: result.numberOfItems,
-					slug
+					slug,
+					sort,
+					order
 				}
 			};
 		} catch (error) {
@@ -28,9 +37,12 @@
 	import type { Item } from '$lib/sanity/item';
 	import List from '$lib/components/list/List.svelte';
 	import Tag from '$lib/components/pagination/Tag.svelte';
+	import Ordering from '$lib/components/input/Ordering.svelte';
 	export let items: Item[];
 	export let numberOfItems: number;
 	export let slug: string;
+	export let sort: string;
+	export let order: string;
 </script>
 
 <svelte:head>
@@ -38,5 +50,6 @@
 </svelte:head>
 
 <List {items} {numberOfItems}>
+	<Ordering slot="ordering" {sort} {order} />
 	<Tag slot="pagination" {numberOfItems} {slug} pageNumber={1} />
 </List>

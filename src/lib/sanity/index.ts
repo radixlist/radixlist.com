@@ -34,19 +34,24 @@ class Sanity {
 		return this.client.fetch<FeaturedTagsResponse>(FeaturedTags());
 	}
 
-	public ItemsQuery(paginationInput: PaginationInput): Promise<ItemsResponse> {
-		return this.client.fetch<ItemsResponse>(Items(paginationInput));
+	public ItemsQuery(paginationInput: PaginationInput, ordering: string): Promise<ItemsResponse> {
+		return this.client.fetch<ItemsResponse>(Items(paginationInput, ordering));
 	}
 
-	public ItemsByTagQuery(tag: string, paginationInput: PaginationInput): Promise<ItemsResponse> {
-		return this.client.fetch<ItemsResponse>(ItemsByTag(tag, paginationInput));
+	public ItemsByTagQuery(
+		tag: string,
+		paginationInput: PaginationInput,
+		ordering: string
+	): Promise<ItemsResponse> {
+		return this.client.fetch<ItemsResponse>(ItemsByTag(tag, paginationInput, ordering));
 	}
 
 	public ItemsByPersonQuery(
 		person: string,
-		paginationInput: PaginationInput
+		paginationInput: PaginationInput,
+		ordering: string
 	): Promise<ItemsResponse> {
-		return this.client.fetch<ItemsResponse>(ItemsByPerson(person, paginationInput));
+		return this.client.fetch<ItemsResponse>(ItemsByPerson(person, paginationInput, ordering));
 	}
 
 	public ItemBySlugQuery(slug: string): Promise<ItemResponse> {

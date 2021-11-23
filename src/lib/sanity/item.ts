@@ -38,13 +38,16 @@ export type PaginationInput = {
 	limit: number;
 };
 
-export const Items = (paginationInput: PaginationInput = { page: 1, limit: 20 }): string => {
+export const Items = (
+	paginationInput: PaginationInput = { page: 1, limit: 20 },
+	order: string = '_createdAt desc'
+): string => {
 	const today = new Date().toISOString().split('T')[0];
 	const start = (paginationInput.page - 1) * paginationInput.limit;
 	const end = (paginationInput.page - 1) * (paginationInput.limit - 1) + paginationInput.limit - 1;
 	return groq`
   {
-    'items': *[_type == 'item'] | order(coalesce(count(promoted[expires >= '${today}']) > 0, false) desc) [${start}..${end}] {
+    'items': *[_type == 'item'] | order(${order}) | order(coalesce(count(promoted[expires >= '${today}']) > 0, false) desc) [${start}..${end}] {
       _id,
       _updatedAt,
       title,
@@ -77,14 +80,15 @@ export const Items = (paginationInput: PaginationInput = { page: 1, limit: 20 })
 
 export const ItemsByTag = (
 	tag: string,
-	paginationInput: PaginationInput = { page: 1, limit: 20 }
+	paginationInput: PaginationInput = { page: 1, limit: 20 },
+	order: string = '_createdAt desc'
 ): string => {
 	const today = new Date().toISOString().split('T')[0];
 	const start = (paginationInput.page - 1) * paginationInput.limit;
 	const end = (paginationInput.page - 1) * (paginationInput.limit - 1) + paginationInput.limit - 1;
 	return groq`
   {
-    'items': *[_type == 'item' && tags[]->slug.current match '${tag}'] | order(coalesce(count(promoted[expires >= '${today}']) > 0, false) desc) [${start}..${end}] {
+    'items': *[_type == 'item' && tags[]->slug.current match '${tag}'] | order(${order}) | order(coalesce(count(promoted[expires >= '${today}']) > 0, false) desc) [${start}..${end}] {
       _id,
       _updatedAt,
       title,
@@ -117,14 +121,15 @@ export const ItemsByTag = (
 
 export const ItemsByPerson = (
 	person: string,
-	paginationInput: PaginationInput = { page: 1, limit: 20 }
+	paginationInput: PaginationInput = { page: 1, limit: 20 },
+	order: string = '_createdAt desc'
 ): string => {
 	const today = new Date().toISOString().split('T')[0];
 	const start = (paginationInput.page - 1) * paginationInput.limit;
 	const end = (paginationInput.page - 1) * (paginationInput.limit - 1) + paginationInput.limit - 1;
 	return groq`
   {
-    'items': *[_type == 'item' && owners[]->slug.current match '${person}'] | order(coalesce(count(promoted[expires >= '${today}']) > 0, false) desc) [${start}..${end}] {
+    'items': *[_type == 'item' && owners[]->slug.current match '${person}'] | order(${order}) | order(coalesce(count(promoted[expires >= '${today}']) > 0, false) desc) [${start}..${end}] {
       _id,
       _updatedAt,
       title,

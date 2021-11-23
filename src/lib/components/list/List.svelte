@@ -10,12 +10,19 @@
 	<div class="max-w-screen-lg w-full md:grid grid-cols-4 gap-4">
 		{#if items.length > 0}
 			<div class="col-span-3">
-				{#if numberOfItems > 1}
-					<span class="italic font-mulish text-sm">Found {numberOfItems} results</span>
-				{/if}
-				{#if numberOfItems === 1}
-					<span class="italic font-mulish text-sm">Found {numberOfItems} result</span>
-				{/if}
+				<div class="flex flex-col md:flex-row justify-between md:items-end">
+					{#if numberOfItems > 1}
+						<span class="italic font-mulish text-sm order-last mt-2 md:order-first"
+							>Found {numberOfItems} results</span
+						>
+					{/if}
+					{#if numberOfItems === 1}
+						<span class="italic font-mulish text-sm order-last mt-2 md:order-first"
+							>Found {numberOfItems} result</span
+						>
+					{/if}
+					<slot name="ordering" />
+				</div>
 				{#each items as item}
 					<div class="py-4">
 						<ItemComponent {item} />
