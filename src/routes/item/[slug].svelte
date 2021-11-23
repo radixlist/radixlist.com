@@ -32,6 +32,12 @@
 
 <svelte:head>
 	<title>Radix List | {item.title}</title>
+	<meta property="og:title" content={item.title} />
+	<meta property="og:image" content={item.image.url} />
+	<meta name="twitter:title" content={item.title} />
+	<meta name="twitter:description" content={item.shortDescription} />
+	<meta name="twitter:image" content={item.image.url} />
+	<meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
 <main class="flex justify-center">

@@ -40,6 +40,15 @@
 
 <svelte:head>
 	<title>Radix List | Explore Radix community projects</title>
+	<meta property="og:title" content="Radix List | Explore Radix community projects" />
+	<meta property="og:image" content="/favicon.png" />
+	<meta name="twitter:title" content="Radix List | Explore Radix community projects" />
+	<meta
+		name="twitter:description"
+		content="radixlist.com is a service where all community projects, initiatives and social gatherings is gathered in an easily searchable service."
+	/>
+	<meta name="twitter:image" content="/favicon.png" />
+	<meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
 <List {items} {numberOfItems}>
