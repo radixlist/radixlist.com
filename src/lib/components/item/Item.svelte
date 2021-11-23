@@ -12,20 +12,16 @@
 	class:!bg-pink-100={item.promoted}
 	class:!border-pink-300={item.promoted}
 >
-	<div class="pr-4 flex items-center flex-shrink-0">
-		{#if item.image.url}
-			<img
-				src={item.image.url}
-				alt={item.image.caption}
-				class="w-16 h-16 rounded-md overflow-hidden"
-			/>
-		{:else}
-			<img
-				src={UnknownItemIcon}
-				alt="Unknown item icon"
-				class="w-16 h-16 rounded-md overflow-hidden"
-			/>
-		{/if}
+	<div class="flex items-center pr-4">
+		<div
+			class="flex items-center flex-shrink-0 rounded-md w-16 overflow-hidden relative justify-center"
+		>
+			{#if item.image.url}
+				<img src={item.image.url} alt={item.image.caption} class="w-full min-h-full" />
+			{:else}
+				<img src={UnknownItemIcon} alt="Unknown item icon" class="w-full min-h-full" />
+			{/if}
+		</div>
 	</div>
 	<div>
 		<h1 class="font-mulish text-xl pb-2">{item.title}</h1>
