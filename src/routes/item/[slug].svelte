@@ -55,10 +55,13 @@
 						<Tag promoted={item.promoted} href={`/tag/${tag.slug}`}>{tag.title}</Tag>
 					{/each}
 				</div>
+				<div class="pt-2">
+					{item.shortDescription}
+				</div>
 			</div>
 		</div>
 		<div class="mt-8 border-b border-blue-300 font-mulish text-2xl pb-2">Overview</div>
-		<div class="py-4">
+		<div class="py-4 portable-block">
 			<PortableText blocks={item.description} />
 		</div>
 		<div class="mt-8 border-b border-blue-300 font-mulish text-2xl pb-2">
@@ -101,3 +104,9 @@
 		</div>
 	</div>
 </main>
+
+<style lang="scss">
+	.portable-block :global(p) {
+		@apply py-2;
+	}
+</style>
