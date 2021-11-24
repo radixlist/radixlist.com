@@ -43,8 +43,8 @@ export const Items = (
 	order: string = '_createdAt desc'
 ): string => {
 	const today = new Date().toISOString().split('T')[0];
-	const start = (paginationInput.page - 1) * paginationInput.limit;
-	const end = (paginationInput.page - 1) * (paginationInput.limit - 1) + paginationInput.limit - 1;
+	const start = Math.max((paginationInput.page - 1) * paginationInput.limit, 0);
+	const end = (paginationInput.page - 1) * paginationInput.limit + paginationInput.limit - 1;
 	return groq`
   {
     'items': *[_type == 'item'] | order(${order}) | order(coalesce(count(promoted[expires >= '${today}']) > 0, false) desc) [${start}..${end}] {
@@ -84,8 +84,8 @@ export const ItemsByTag = (
 	order: string = '_createdAt desc'
 ): string => {
 	const today = new Date().toISOString().split('T')[0];
-	const start = (paginationInput.page - 1) * paginationInput.limit;
-	const end = (paginationInput.page - 1) * (paginationInput.limit - 1) + paginationInput.limit - 1;
+	const start = Math.max((paginationInput.page - 1) * paginationInput.limit, 0);
+	const end = (paginationInput.page - 1) * paginationInput.limit + paginationInput.limit - 1;
 	return groq`
   {
     'items': *[_type == 'item' && tags[]->slug.current match '${tag}'] | order(${order}) | order(coalesce(count(promoted[expires >= '${today}']) > 0, false) desc) [${start}..${end}] {
@@ -125,8 +125,8 @@ export const ItemsByPerson = (
 	order: string = '_createdAt desc'
 ): string => {
 	const today = new Date().toISOString().split('T')[0];
-	const start = (paginationInput.page - 1) * paginationInput.limit;
-	const end = (paginationInput.page - 1) * (paginationInput.limit - 1) + paginationInput.limit - 1;
+	const start = Math.max((paginationInput.page - 1) * paginationInput.limit, 0);
+	const end = (paginationInput.page - 1) * paginationInput.limit + paginationInput.limit - 1;
 	return groq`
   {
     'items': *[_type == 'item' && owners[]->slug.current match '${person}'] | order(${order}) | order(coalesce(count(promoted[expires >= '${today}']) > 0, false) desc) [${start}..${end}] {
