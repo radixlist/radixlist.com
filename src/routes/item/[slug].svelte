@@ -44,11 +44,13 @@
 	<div class="max-w-screen-lg w-full">
 		<Breadcrumb current={item.title} />
 		<div class="flex flex-col md:flex-row items-center mt-10">
-			<div class="rounded-md overflow-hidden">
+			<div
+				class="flex items-center flex-shrink-0 rounded-md w-40 overflow-hidden relative justify-center"
+			>
 				{#if item.image.url}
-					<img src={item.image.url} alt={item.image.caption} class="w-40 h-40" />
+					<img src={item.image.url} alt={item.image.caption} class="w-full min-h-full" />
 				{:else}
-					<img src={UnknownItemIcon} alt="Unknown item icon" class="w-40 h-40" />
+					<img src={UnknownItemIcon} alt="Unknown item icon" class="w-full min-h-full" />
 				{/if}
 			</div>
 			<div class="md:pl-8 pt-4 md:pt-0">
@@ -61,13 +63,13 @@
 						<Tag promoted={item.promoted} href={`/tag/${tag.slug}`}>{tag.title}</Tag>
 					{/each}
 				</div>
-				<div class="pt-2">
+				<div class="pt-2 break-words">
 					{item.shortDescription}
 				</div>
 			</div>
 		</div>
 		<div class="mt-8 border-b border-blue-300 font-mulish text-2xl pb-2">Overview</div>
-		<div class="py-4 portable-block">
+		<div class="py-4 portable-block break-words">
 			<PortableText blocks={item.description} />
 		</div>
 		<div class="mt-8 border-b border-blue-300 font-mulish text-2xl pb-2">
