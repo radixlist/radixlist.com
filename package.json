@@ -14,7 +14,7 @@
 		"@portabletext/svelte": "^0.2.0",
 		"@sanity/client": "^2.21.10",
 		"@sveltejs/adapter-vercel": "^1.0.0-next.31",
-		"@sveltejs/kit": "next",
+		"@sveltejs/kit": "1.0.0-next.202",
 		"@typescript-eslint/eslint-plugin": "^4.31.1",
 		"@typescript-eslint/parser": "^4.31.1",
 		"autoprefixer": "^10.3.7",
@@ -32,7 +32,7 @@
 		"svelte": "^3.42.6",
 		"svelte-check": "^2.2.6",
 		"svelte-preprocess": "^4.9.8",
-		"tailwindcss": "next",
+		"tailwindcss": "^3.0.7",
 		"tslib": "^2.3.1",
 		"typescript": "^4.4.3"
 	},
