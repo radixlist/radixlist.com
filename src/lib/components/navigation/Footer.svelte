@@ -1,5 +1,8 @@
 <script lang="ts">
+	import type { Team } from '$lib/sanity/team';
 	import MailIcon from '$assets/Mail.svg';
+
+	export let team: Team;
 </script>
 
 <footer class="flex justify-center pb-8">
@@ -37,10 +40,21 @@
 		<div class="text-sm py-4 md:py-0">
 			<div>Made with ❤️ for the Radix Community</div>
 			<div>
-				By <a
-					href="https://twitter.com/Kansuler"
-					class="underline text-gray-800 hover:text-zinc-500">Kansuler</a
-				>
+				{#each team.members as member (member._key)}
+					{#if member.contact}
+						<a
+							href={member.contact.link}
+							class="text-gray-800 hover:text-zinc-500 cursor-pointer block"
+						>
+							{#if member.contact.icon}
+								<img src={member.contact.icon} class="w-4 h-4 inline" alt="icon" />
+							{/if}
+							{member.name}
+						</a>
+					{:else}
+						{member.name}
+					{/if}
+				{/each}
 			</div>
 		</div>
 	</div>

@@ -2,10 +2,12 @@ import type { SanityClient } from '@sanity/client';
 import type { ItemsResponse, ItemResponse, PaginationInput } from './item';
 import type { SearchResponse } from './search';
 import type { FeaturedTagsResponse } from './tag';
+import type { LayoutResponse } from './compounded';
 import { Search } from './search';
 import sanityClient from '@sanity/client';
 import { Items, ItemsByTag, ItemsByPerson, ItemBySlug } from './item';
 import { FeaturedTags } from './tag';
+import { Layout } from './compounded';
 
 class Sanity {
 	client: SanityClient;
@@ -60,6 +62,10 @@ class Sanity {
 
 	public SearchQuery(search: string): Promise<SearchResponse> {
 		return this.client.fetch<SearchResponse>(Search(search));
+	}
+
+	public LayoutQuery(): Promise<LayoutResponse> {
+		return this.client.fetch<LayoutResponse>(Layout());
 	}
 }
 

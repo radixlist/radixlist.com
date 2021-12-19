@@ -4,11 +4,12 @@
 
 	export const load: Load = async () => {
 		try {
-			const result = await sanity.FeaturedTagsQuery();
+			const result = await sanity.LayoutQuery();
 
 			return {
 				status: 200,
 				props: {
+					team: result.team,
 					tags: result.tags
 				}
 			};
@@ -25,6 +26,7 @@
 	import type { Item } from '$lib/sanity/item';
 	import type { Tag } from '$lib/sanity/tag';
 	import type { Person } from '$lib/sanity/person';
+	import type { Team } from '$lib/sanity/team';
 	import { goto } from '$app/navigation';
 	import Navigation from '$lib/components/navigation/Navigation.svelte';
 	import SearchBar from '$lib/components/input/SearchBar.svelte';
@@ -36,6 +38,7 @@
 	import TagComponent from '$lib/components/item/Tag.svelte';
 
 	export let tags: Tag[];
+	export let team: Team;
 
 	let itemSuggestions: Item[] = [];
 
@@ -144,7 +147,7 @@
 	<div class="flex-grow pb-8">
 		<slot />
 	</div>
-	<Footer />
+	<Footer {team} />
 </div>
 
 <style lang="scss">
