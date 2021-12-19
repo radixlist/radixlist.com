@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Team } from '$lib/sanity/team';
 	import MailIcon from '$assets/Mail.svg';
+	import Telegram from '$assets/Telegram.svg';
 
 	export let team: Team;
 </script>
@@ -35,6 +36,12 @@
 					target="_blank"
 					class="underline hover:text-zinc-500">Statistics</a
 				>
+				<a
+					href="https://t.me/radixlist"
+					class="text-gray-800 hover:text-zinc-500 cursor-pointer block underline"
+				>
+					<img src={Telegram} class="w-4 h-4 inline-block mr-2" alt="icon" />Radix List
+				</a>
 			</div>
 		</div>
 		<div class="text-sm py-4 md:py-0">
