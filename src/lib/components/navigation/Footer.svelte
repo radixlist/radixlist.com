@@ -47,21 +47,23 @@
 		<div class="text-sm py-4 md:py-0">
 			<div>Made with ❤️ for the Radix Community</div>
 			<div>
-				{#each team.members as member (member._key)}
-					{#if member.contact}
-						<a
-							href={member.contact.link}
-							class="text-gray-800 hover:text-zinc-500 cursor-pointer block"
-						>
-							{#if member.contact.icon}
-								<img src={member.contact.icon} class="w-4 h-4 inline" alt="icon" />
-							{/if}
+				{#if team}
+					{#each team.members as member (member._key)}
+						{#if member.contact}
+							<a
+								href={member.contact.link}
+								class="text-gray-800 hover:text-zinc-500 cursor-pointer block"
+							>
+								{#if member.contact.icon}
+									<img src={member.contact.icon} class="w-4 h-4 inline" alt="icon" />
+								{/if}
+								{member.name}
+							</a>
+						{:else}
 							{member.name}
-						</a>
-					{:else}
-						{member.name}
-					{/if}
-				{/each}
+						{/if}
+					{/each}
+				{/if}
 			</div>
 		</div>
 	</div>
