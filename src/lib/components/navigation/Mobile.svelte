@@ -3,6 +3,7 @@
 	import { onDestroy, onMount } from 'svelte';
 	import NavigationOpen from './NavigationOpen.svelte';
 	import NavigationClose from './NavigationClose.svelte';
+	import Telegram from '$assets/Telegram.svg';
 
 	let __refRoot: HTMLElement;
 	let _active = false;
@@ -101,6 +102,21 @@
 				>
 					<div>
 						<div class="font-bold text-lg text-[#005DAA] flex items-center">Statistics</div>
+					</div>
+				</a>
+			</div>
+			<div class="">
+				<a
+					href="https://t.me/radixlist"
+					target="_blank"
+					class="link box-border flex flex-row items-center py-2 cursor-pointer"
+					on:click={() => (_active = false)}
+				>
+					<div>
+						<div class="font-bold text-lg text-[#005DAA] flex items-center">
+							<img src={Telegram} class="w-6 h-6 inline-block mr-2" alt="icon" />
+							Telegram announcements
+						</div>
 					</div>
 				</a>
 			</div>

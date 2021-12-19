@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Logo from '$assets/Logo.svg';
+	import Telegram from '$assets/Telegram.svg';
 	import Mobile from './Mobile.svelte';
 
 	let _hoverID = -1;
@@ -59,6 +60,24 @@
 					style="-webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% 100%; transition-property: background; background-position: 100%;"
 				>
 					Statistics
+				</span>
+			</a>
+
+			<a
+				href="https://t.me/radixlist"
+				target="_blank"
+				class="navigation-item-wrapper box-border px-4 hidden md:inline-block cursor-pointer mt-4"
+				aria-haspopup="false"
+				on:mouseenter={() => (_hoverID = 3)}
+				on:mouseleave={() => (_hoverID = -1)}
+			>
+				<span
+					class="navigation-item box-border pb-2 relative inline-block overflow-hidden bg-clip-text sharp-blue-to-black duration-300 ease-in-out font-mulish"
+					class:active={_hoverID === 3}
+					style="-webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% 100%; transition-property: background; background-position: 100%;"
+				>
+					<img src={Telegram} class="w-6 h-6 inline-block mr-1" alt="icon" />
+					Telegram Announcements
 				</span>
 			</a>
 		</div>
