@@ -1,9 +1,0 @@
-.DS_Store
-node_modules
-/build
-/.svelte-kit
-/package
-.env
-/.history
-/public
-/.vercel_build_output
