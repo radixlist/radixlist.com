@@ -31,7 +31,6 @@
 			};
 
 			let ui = firebaseui.auth.AuthUI.getInstance();
-			console.log(ui);
 			if (ui) {
 				ui.reset();
 			} else {
