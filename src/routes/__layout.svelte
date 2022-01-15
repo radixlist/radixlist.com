@@ -1,155 +1,341 @@
-<script lang="ts" context="module">
-	import type { Load } from '@sveltejs/kit';
-	import sanity from '$lib/sanity';
-
-	export const load: Load = async () => {
-		try {
-			const result = await sanity.LayoutQuery();
-
-			return {
-				status: 200,
-				props: {
-					team: result.team,
-					tags: result.tags
-				}
-			};
-		} catch (error) {
-			return {
-				status: 500,
-				error
-			};
-		}
-	};
-</script>
-
 <script lang="ts">
-	import type { Item } from '$lib/sanity/item';
-	import type { Tag } from '$lib/sanity/tag';
-	import type { Person } from '$lib/sanity/person';
-	import type { Team } from '$lib/sanity/team';
-	import { goto } from '$app/navigation';
-	import Navigation from '$lib/components/navigation/Navigation.svelte';
-	import SearchBar from '$lib/components/input/SearchBar.svelte';
-	import SwingBlockLoading from '$assets/loading/SwingBlockLoading.svelte';
-	import UnknownItemIcon from '$assets/UnknownItem.svg';
-	import TagIcon from '$assets/Tag.svg';
-	import PersonIcon from '$assets/Person.svg';
-	import Footer from '$lib/components/navigation/Footer.svelte';
-	import TagComponent from '$lib/components/item/Tag.svelte';
-
-	export let tags: Tag[];
-	export let team: Team;
-
-	let itemSuggestions: Item[] = [];
-
-	let tagSuggestions: Tag[] = [];
-
-	let personSuggestions: Person[] = [];
-
-	let loadingAutocomplete = false;
-
-	async function Search(search: string): Promise<void> {
-		loadingAutocomplete = true;
-		const results = await sanity.SearchQuery(search);
-		itemSuggestions = [...results.items];
-		tagSuggestions = [...results.tags];
-		personSuggestions = [...results.persons];
-		loadingAutocomplete = false;
-	}
-
-	function Select(item: Item | Tag | Person) {
-		switch (item._type) {
-			case 'item':
-				goto(`/item/${item.slug}`);
-				break;
-			case 'tag':
-				goto(`/tag/${item.slug}`);
-				break;
-			case 'person':
-				goto(`/people/${item.slug}`);
-				break;
-		}
-	}
+	import '../app.css';
 </script>
 
-<div class="absolute bg-gradient-to-br from-blue-200 to-transparent h-1/2 w-full top-0">
-	<div class="bg-gradient-to-t from-white to-transparent w-full h-full" />
-</div>
+<svelte:head>
+	<meta name="theme-color" media="(prefers-color-scheme: light)" content="#082E40" />
+	<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#001023" />
 
-<div class="h-full px-4 flex flex-col min-h-full relative">
-	<Navigation />
-	<div class="flex justify-center md:pt-16">
-		<div class="max-w-screen-lg w-full">
-			<div class="pb-4">
-				<h1 class="font-philosopher text-4xl md:text-6xl text-gray-800">
-					Explore Radix community initiatives
-				</h1>
+	<style>
+		@font-face {
+			font-family: 'Alegreya Sans SC';
+			src: url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Black.woff2?v=1.0') format('woff2'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Black.woff?v=1.0') format('woff'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Black.ttf?v=1.0') format('truetype'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Black.svg#web?v=1.0') format('svg');
+			font-style: normal;
+			font-weight: 900;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Alegreya Sans SC';
+			src: url('/fonts/alegreya-sans-sc/AlegreyaSansSC-BlackItalic.woff2?v=1.0') format('woff2'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-BlackItalic.woff?v=1.0') format('woff'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-BlackItalic.ttf?v=1.0') format('truetype'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-BlackItalic.svg#web?v=1.0') format('svg');
+			font-style: italic;
+			font-weight: 900;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Alegreya Sans SC';
+			src: url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Bold.woff2?v=1.0') format('woff2'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Bold.woff?v=1.0') format('woff'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Bold.ttf?v=1.0') format('truetype'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Bold.svg#web?v=1.0') format('svg');
+			font-style: normal;
+			font-weight: 700;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Alegreya Sans SC';
+			src: url('/fonts/alegreya-sans-sc/AlegreyaSansSC-BoldItalic.woff2?v=1.0') format('woff2'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-BoldItalic.woff?v=1.0') format('woff'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-BoldItalic.ttf?v=1.0') format('truetype'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-BoldItalic.svg#web?v=1.0') format('svg');
+			font-style: italic;
+			font-weight: 700;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Alegreya Sans SC';
+			src: url('/fonts/alegreya-sans-sc/AlegreyaSansSC-ExtraBold.woff2?v=1.0') format('woff2'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-ExtraBold.woff?v=1.0') format('woff'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-ExtraBold.ttf?v=1.0') format('truetype'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-ExtraBold.svg#web?v=1.0') format('svg');
+			font-style: normal;
+			font-weight: 800;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Alegreya Sans SC';
+			src: url('/fonts/alegreya-sans-sc/AlegreyaSansSC-ExtraBoldItalic.woff2?v=1.0') format('woff2'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-ExtraBoldItalic.woff?v=1.0') format('woff'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-ExtraBoldItalic.ttf?v=1.0') format('truetype'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-ExtraBoldItalic.svg#web?v=1.0') format('svg');
+			font-style: italic;
+			font-weight: 800;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Alegreya Sans SC';
+			src: url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Italic.woff2?v=1.0') format('woff2'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Italic.woff?v=1.0') format('woff'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Italic.ttf?v=1.0') format('truetype'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Italic.svg#web?v=1.0') format('svg');
+			font-style: italic;
+			font-weight: 400;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Alegreya Sans SC';
+			src: url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Light.woff2?v=1.0') format('woff2'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Light.woff?v=1.0') format('woff'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Light.ttf?v=1.0') format('truetype'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Light.svg#web?v=1.0') format('svg');
+			font-style: normal;
+			font-weight: 200;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Alegreya Sans SC';
+			src: url('/fonts/alegreya-sans-sc/AlegreyaSansSC-LightItalic.woff2?v=1.0') format('woff2'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-LightItalic.woff?v=1.0') format('woff'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-LightItalic.ttf?v=1.0') format('truetype'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-LightItalic.svg#web?v=1.0') format('svg');
+			font-style: italic;
+			font-weight: 200;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Alegreya Sans SC';
+			src: url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Medium.woff2?v=1.0') format('woff2'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Medium.woff?v=1.0') format('woff'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Medium.ttf?v=1.0') format('truetype'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Medium.svg#web?v=1.0') format('svg');
+			font-style: normal;
+			font-weight: 500;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Alegreya Sans SC';
+			src: url('/fonts/alegreya-sans-sc/AlegreyaSansSC-MediumItalic.woff2?v=1.0') format('woff2'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-MediumItalic.woff?v=1.0') format('woff'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-MediumItalic.ttf?v=1.0') format('truetype'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-MediumItalic.svg#web?v=1.0') format('svg');
+			font-style: italic;
+			font-weight: 500;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Alegreya Sans SC';
+			src: url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Regular.woff2?v=1.0') format('woff2'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Regular.woff?v=1.0') format('woff'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Regular.ttf?v=1.0') format('truetype'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Regular.svg#web?v=1.0') format('svg');
+			font-style: normal;
+			font-weight: 400;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Alegreya Sans SC';
+			src: url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Thin.woff2?v=1.0') format('woff2'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Thin.woff?v=1.0') format('woff'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Thin.ttf?v=1.0') format('truetype'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-Thin.svg#web?v=1.0') format('svg');
+			font-style: normal;
+			font-weight: 100;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Alegreya Sans SC';
+			src: url('/fonts/alegreya-sans-sc/AlegreyaSansSC-ThinItalic.woff2?v=1.0') format('woff2'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-ThinItalic.woff?v=1.0') format('woff'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-ThinItalic.ttf?v=1.0') format('truetype'),
+				url('/fonts/alegreya-sans-sc/AlegreyaSansSC-ThinItalic.svg#web?v=1.0') format('svg');
+			font-style: italic;
+			font-weight: 100;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Source Sans Pro';
+			src: url('/fonts/source-sans-pro/SourceSansPro-Black.woff2?v=1.0') format('woff2'),
+				url('/fonts/source-sans-pro/SourceSansPro-Black.woff?v=1.0') format('woff'),
+				url('/fonts/source-sans-pro/SourceSansPro-Black.ttf?v=1.0') format('truetype'),
+				url('/fonts/source-sans-pro/SourceSansPro-Black.svg#web?v=1.0') format('svg');
+			font-style: normal;
+			font-weight: 900;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Source Sans Pro';
+			src: url('/fonts/source-sans-pro/SourceSansPro-BlackItalic.woff2?v=1.0') format('woff2'),
+				url('/fonts/source-sans-pro/SourceSansPro-BlackItalic.woff?v=1.0') format('woff'),
+				url('/fonts/source-sans-pro/SourceSansPro-BlackItalic.ttf?v=1.0') format('truetype'),
+				url('/fonts/source-sans-pro/SourceSansPro-BlackItalic.svg#web?v=1.0') format('svg');
+			font-style: italic;
+			font-weight: 900;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Source Sans Pro';
+			src: url('/fonts/source-sans-pro/SourceSansPro-Bold.woff2?v=1.0') format('woff2'),
+				url('/fonts/source-sans-pro/SourceSansPro-Bold.woff?v=1.0') format('woff'),
+				url('/fonts/source-sans-pro/SourceSansPro-Bold.ttf?v=1.0') format('truetype'),
+				url('/fonts/source-sans-pro/SourceSansPro-Bold.svg#web?v=1.0') format('svg');
+			font-style: normal;
+			font-weight: 700;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Source Sans Pro';
+			src: url('/fonts/source-sans-pro/SourceSansPro-BoldItalic.woff2?v=1.0') format('woff2'),
+				url('/fonts/source-sans-pro/SourceSansPro-BoldItalic.woff?v=1.0') format('woff'),
+				url('/fonts/source-sans-pro/SourceSansPro-BoldItalic.ttf?v=1.0') format('truetype'),
+				url('/fonts/source-sans-pro/SourceSansPro-BoldItalic.svg#web?v=1.0') format('svg');
+			font-style: italic;
+			font-weight: 700;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Source Sans Pro';
+			src: url('/fonts/source-sans-pro/SourceSansPro-ExtraLight.woff2?v=1.0') format('woff2'),
+				url('/fonts/source-sans-pro/SourceSansPro-ExtraLight.woff?v=1.0') format('woff'),
+				url('/fonts/source-sans-pro/SourceSansPro-ExtraLight.ttf?v=1.0') format('truetype'),
+				url('/fonts/source-sans-pro/SourceSansPro-ExtraLight.svg#web?v=1.0') format('svg');
+			font-style: normal;
+			font-weight: 200;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Source Sans Pro';
+			src: url('/fonts/source-sans-pro/SourceSansPro-ExtraLightItalic.woff2?v=1.0') format('woff2'),
+				url('/fonts/source-sans-pro/SourceSansPro-ExtraLightItalic.woff?v=1.0') format('woff'),
+				url('/fonts/source-sans-pro/SourceSansPro-ExtraLightItalic.ttf?v=1.0') format('truetype'),
+				url('/fonts/source-sans-pro/SourceSansPro-ExtraLightItalic.svg#web?v=1.0') format('svg');
+			font-style: italic;
+			font-weight: 200;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Source Sans Pro';
+			src: url('/fonts/source-sans-pro/SourceSansPro-Italic.woff2?v=1.0') format('woff2'),
+				url('/fonts/source-sans-pro/SourceSansPro-Italic.woff?v=1.0') format('woff'),
+				url('/fonts/source-sans-pro/SourceSansPro-Italic.ttf?v=1.0') format('truetype'),
+				url('/fonts/source-sans-pro/SourceSansPro-Italic.svg#web?v=1.0') format('svg');
+			font-style: italic;
+			font-weight: 400;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Source Sans Pro';
+			src: url('/fonts/source-sans-pro/SourceSansPro-Light.woff2?v=1.0') format('woff2'),
+				url('/fonts/source-sans-pro/SourceSansPro-Light.woff?v=1.0') format('woff'),
+				url('/fonts/source-sans-pro/SourceSansPro-Light.ttf?v=1.0') format('truetype'),
+				url('/fonts/source-sans-pro/SourceSansPro-Light.svg#web?v=1.0') format('svg');
+			font-style: normal;
+			font-weight: 300;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Source Sans Pro';
+			src: url('/fonts/source-sans-pro/SourceSansPro-LightItalic.woff2?v=1.0') format('woff2'),
+				url('/fonts/source-sans-pro/SourceSansPro-LightItalic.woff?v=1.0') format('woff'),
+				url('/fonts/source-sans-pro/SourceSansPro-LightItalic.ttf?v=1.0') format('truetype'),
+				url('/fonts/source-sans-pro/SourceSansPro-LightItalic.svg#web?v=1.0') format('svg');
+			font-style: italic;
+			font-weight: 300;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Source Sans Pro';
+			src: url('/fonts/source-sans-pro/SourceSansPro-Regular.woff2?v=1.0') format('woff2'),
+				url('/fonts/source-sans-pro/SourceSansPro-Regular.woff?v=1.0') format('woff'),
+				url('/fonts/source-sans-pro/SourceSansPro-Regular.ttf?v=1.0') format('truetype'),
+				url('/fonts/source-sans-pro/SourceSansPro-Regular.svg#web?v=1.0') format('svg');
+			font-style: normal;
+			font-weight: 400;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Source Sans Pro';
+			src: url('/fonts/source-sans-pro/SourceSansPro-SemiBold.woff2?v=1.0') format('woff2'),
+				url('/fonts/source-sans-pro/SourceSansPro-SemiBold.woff?v=1.0') format('woff'),
+				url('/fonts/source-sans-pro/SourceSansPro-SemiBold.ttf?v=1.0') format('truetype'),
+				url('/fonts/source-sans-pro/SourceSansPro-SemiBold.svg#web?v=1.0') format('svg');
+			font-style: normal;
+			font-weight: 600;
+			font-display: swap;
+		}
+
+		@font-face {
+			font-family: 'Source Sans Pro';
+			src: url('/fonts/source-sans-pro/SourceSansPro-SemiBoldItalic.woff2?v=1.0') format('woff2'),
+				url('/fonts/source-sans-pro/SourceSansPro-SemiBoldItalic.woff?v=1.0') format('woff'),
+				url('/fonts/source-sans-pro/SourceSansPro-SemiBoldItalic.ttf?v=1.0') format('truetype'),
+				url('/fonts/source-sans-pro/SourceSansPro-SemiBoldItalic.svg#web?v=1.0') format('svg');
+			font-style: italic;
+			font-weight: 600;
+			font-display: swap;
+		}
+	</style>
+</svelte:head>
+
+<div class="bg-gray-50 overflow-hidden flex flex-col min-h-screen transition-colors duration-300">
+	<header class="flex justify-center bg-blue-50 font-alegreya-sans-sc">
+		<div class="w-full max-w-screen-xl">
+			<div class="py-2 border-b border-gray-400 flex justify-between">
+				<div>Your initiatives</div>
+				<div>Your account</div>
 			</div>
-			<div class="py-2">
-				<SearchBar
-					placeholder="Search community initiatives"
-					change={Search}
-					select={Select}
-					loading={false}
-					{itemSuggestions}
-					{tagSuggestions}
-					{personSuggestions}
-					let:itemSuggestion
-					let:tagSuggestion
-					let:personSuggestion
-				>
-					<div slot="items" class="flex items-center">
-						{#if itemSuggestion.image.url}
-							<img
-								src={itemSuggestion.image.url}
-								alt={itemSuggestion.image.caption}
-								class="w-6 h-6"
-							/>
-						{:else}
-							<img src={UnknownItemIcon} alt="Unknown logo" class="w-6 h-6" />
-						{/if}
-						<div class="ml-4">
-							<div class="capitalize font-mulish">{itemSuggestion.title}</div>
-						</div>
-					</div>
-					<div slot="tags" class="flex items-center">
-						<img src={TagIcon} alt="Tag" class="w-6 h-6" />
-						<div class="ml-8">
-							<div class="capitalize font-mulish">{tagSuggestion.title}</div>
-						</div>
-					</div>
-					<div slot="persons" class="flex items-center">
-						<img src={PersonIcon} alt="Unknown logo" class="w-6 h-6" />
-						<div class="ml-8">
-							<div class="capitalize font-mulish">{personSuggestion.name}</div>
-						</div>
-					</div>
-					<div slot="loading" class="flex px-8 py-2 items-center font-mulish">
-						<SwingBlockLoading />
-						<div class="pl-4">Loading...</div>
-					</div>
-					<div
-						slot="no-result"
-						class="flex px-8 py-2 items-center font-mulish font-italic text-gray-500"
+			<div class="py-6 flex justify-between">
+				<div class="flex items-center gap-4 text-3xl tracking-wider">
+					<svg
+						width="48"
+						height="48"
+						viewBox="0 0 48 48"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
 					>
-						No results found
-					</div>
-				</SearchBar>
+						<path d="M9 9L5 5V43L9 47H43V9H9Z" fill="white" />
+						<path d="M9 47L7 45L43 9V47H9Z" fill="#BBD8FF" />
+						<path
+							d="M43 1H9L5 5M5 5L9 9H43V47H9L5 43V5ZM12 5H41M3 15H7M3 21H7M3 27H7M3 33H7M3 39H7"
+							stroke="#1F2937"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
+						<path
+							d="M21.5912 37.9933C21.3849 37.9931 21.1816 37.9427 20.9979 37.846C20.8142 37.7494 20.6554 37.6093 20.5343 37.4372L15.3688 30.0657H12V27.3825H16.0352C16.2415 27.3823 16.4449 27.4326 16.6286 27.5292C16.8124 27.6259 16.9712 27.7662 17.092 27.9385L21.3132 33.9642L27.7543 18.7999C27.8563 18.5607 28.0237 18.3572 28.236 18.2143C28.4484 18.0715 28.6965 17.9954 28.9501 17.9954H37V20.687H29.8025L22.787 37.195C22.6945 37.4121 22.5481 37.6002 22.3626 37.7403C22.177 37.8804 21.9589 37.9677 21.7302 37.9933C21.6852 37.9933 21.6382 37.9933 21.5912 37.9933Z"
+							fill="#1F2937"
+						/>
+					</svg>
+					<h2>Radix List</h2>
+				</div>
+				<div class="flex items-center">
+					<a href="/" class="underline"> Menu </a>
+				</div>
 			</div>
-			<div class="py-2 flex gap-2 flex-wrap">
-				{#each tags as tag}
-					<TagComponent promoted={false} href={`/tag/${tag.slug}`}>{tag.title}</TagComponent>
-				{/each}
-			</div>
-			<div class="border-b border-blue-300 my-2" />
 		</div>
-	</div>
-	<div class="flex-grow pb-8">
+	</header>
+
+	<div class="flex-grow">
 		<slot />
 	</div>
-	<Footer {team} />
+	<footer>Footer</footer>
 </div>
-
-<style lang="scss">
-	@import '../app.css';
-</style>

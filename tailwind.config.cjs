@@ -4,8 +4,8 @@ const config = {
 	theme: {
 		extend: {
 			fontFamily: {
-				mulish: ['Mulish', 'sans-serif'],
-				philosopher: ['Philosopher', 'sans-serif']
+				'alegreya-sans-sc': ['Alegreya Sans SC', 'sans-serif'],
+				'source-sans-pro': ['Source Sans Pro', 'system-ui']
 			}
 		}
 	},
