@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Account from '$lib/components/auth/Account.svelte';
+	import Logout from '$lib/components/auth/Logout.svelte';
 </script>
 
 <svelte:head>
@@ -9,3 +10,5 @@
 </svelte:head>
 
 <Account />
+
+<Logout />

@@ -43,3 +43,4 @@
 
 <div id="firebaseui-auth-container"></div>
 <div id="firebaseui-loader">Loading...</div>
+<div>To create an account, start by entering your email above.</div>

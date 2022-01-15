@@ -5,7 +5,7 @@
 
 	if (browser) {
 		onMount(async () => {
-			const { default: firebase } = await import('firebase/compat/app');
+			await import('firebase/compat/app');
 			const { getAuth, onAuthStateChanged } = await import('firebase/auth');
 
 			const auth = getAuth();
@@ -20,7 +20,7 @@
 					document.getElementById('user-details').style.display = 'inline';
 				} else {
 					// User is signed out
-					goto('./login')
+					goto('/account/login');
 				}
 			});
 		});
