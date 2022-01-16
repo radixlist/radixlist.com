@@ -26,7 +26,7 @@
 				signInOptions: [
 					firebase.auth.EmailAuthProvider.PROVIDER_ID,
 				],
-				// TODO
+				// TODO add privacy policy
 				// privacyPolicyUrl: '<your-tos-url>'
 			};
 

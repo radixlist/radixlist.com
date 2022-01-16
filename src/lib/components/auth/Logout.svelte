@@ -6,7 +6,7 @@
 		getAuth().signOut().then(function() {
 			goto('/');
 		}, function(error) {
-			// TODO
+			// TODO show the user this error
 			console.error('Sign Out Error', error);
 		});
 	}
