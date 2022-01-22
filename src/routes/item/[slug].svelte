@@ -73,7 +73,7 @@
 			<PortableText blocks={item.description} />
 		</div>
 		<div class="mt-8 border-b border-blue-300 font-mulish text-2xl pb-2">
-			People who leads the initiative
+			People who lead this initiative
 		</div>
 		<div class="pt-4">
 			{#if item.owners.length === 0}
