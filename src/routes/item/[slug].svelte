@@ -110,6 +110,10 @@
 				</a>
 			{/each}
 		</div>
+		<div class="mt-8 border-b border-blue-300 font-mulish text-2xl pb-2">Warning ⚠️</div>
+		<div class="flex flex-col md:flex-row flex-wrap gap-4 pt-4">
+			Radix List does not vet or verify projects that gets listed. It's important that you are aware of this before considering to invest time and money in the projects listed here. There is a possibility of scams and money grabs. Do your own research (DYOR) and be cautious.
+		</div>
 	</div>
 </main>
 
