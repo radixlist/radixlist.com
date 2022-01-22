@@ -75,12 +75,7 @@
 				</div>
 			</div>
 		</div>
-		<div
-			class="md:mt-8 border-b border-blue-300 font-mulish text-2xl pb-2"
-			class:mt-4={!promotedItem}
-		>
-			Overview
-		</div>
+		<div class="md:mt-8 border-b border-blue-300 font-mulish text-2xl pb-2 mt-4">Overview</div>
 		<div class="portable-block break-words">
 			<PortableText blocks={item.description} />
 		</div>
