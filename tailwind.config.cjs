@@ -11,6 +11,7 @@ const config = {
 	},
 
 	plugins: [
+		require('@tailwindcss/line-clamp'),
 		function ({ addVariant }) {
 			addVariant('supports-scrollbars', '@supports selector(::-webkit-scrollbar)');
 			addVariant('scrollbar', '&::-webkit-scrollbar');

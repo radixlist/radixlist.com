@@ -49,7 +49,7 @@
 		<Breadcrumb current={item.title} />
 		<div class="flex flex-col md:flex-row items-center mt-10 ">
 			<div
-				class="flex items-center flex-shrink-0 rounded-md w-40 overflow-hidden relative justify-center flex-1 min-w-0"
+				class="flex items-center flex-shrink-0 rounded-md w-40 overflow-hidden relative justify-center"
 			>
 				{#if item.image.url}
 					<img src={item.image.url} alt={item.image.caption} class="w-full min-h-full" />

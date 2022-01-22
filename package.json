@@ -15,6 +15,7 @@
 		"@sanity/client": "^2.21.10",
 		"@sveltejs/adapter-vercel": "^1.0.0-next.31",
 		"@sveltejs/kit": "1.0.0-next.239",
+		"@tailwindcss/line-clamp": "^0.3.1",
 		"@typescript-eslint/eslint-plugin": "^4.31.1",
 		"@typescript-eslint/parser": "^4.31.1",
 		"autoprefixer": "^10.3.7",

@@ -48,7 +48,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="pt-1 relative">
+		<div class="pt-1 relative line-clamp-3 md:line-clamp-none">
 			{item.shortDescription}
 		</div>
 	</div>
