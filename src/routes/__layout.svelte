@@ -10,7 +10,8 @@
 				status: 200,
 				props: {
 					team: result.team,
-					tags: result.tags
+					tags: result.tags,
+					bannerItem: result.bannerItem
 				}
 			};
 		} catch (error) {
@@ -36,9 +37,11 @@
 	import PersonIcon from '$assets/Person.svg';
 	import Footer from '$lib/components/navigation/Footer.svelte';
 	import TagComponent from '$lib/components/item/Tag.svelte';
+	import ItemComponent from '$lib/components/item/Item.svelte';
 
 	export let tags: Tag[];
 	export let team: Team;
+	export let bannerItem: Item;
 
 	let itemSuggestions: Item[] = [];
 
@@ -46,15 +49,11 @@
 
 	let personSuggestions: Person[] = [];
 
-	let loadingAutocomplete = false;
-
 	async function Search(search: string): Promise<void> {
-		loadingAutocomplete = true;
 		const results = await sanity.SearchQuery(search);
 		itemSuggestions = [...results.items];
 		tagSuggestions = [...results.tags];
 		personSuggestions = [...results.persons];
-		loadingAutocomplete = false;
 	}
 
 	function Select(item: Item | Tag | Person) {
@@ -76,15 +75,15 @@
 	<div class="bg-gradient-to-t from-white to-transparent w-full h-full" />
 </div>
 
-<div class="h-full px-4 flex flex-col min-h-full relative">
+<div class="h-full px-2 flex flex-col min-h-full relative">
 	<Navigation />
-	<div class="flex justify-center md:pt-16">
+	<div class="flex justify-center md:pt-2">
 		<div class="max-w-screen-lg w-full">
-			<div class="pb-4">
-				<h1 class="font-philosopher text-4xl md:text-6xl text-gray-800">
-					Explore Radix community initiatives
-				</h1>
-			</div>
+			{#if bannerItem}
+				<div class="pb-2">
+					<ItemComponent item={bannerItem} />
+				</div>
+			{/if}
 			<div class="py-2">
 				<SearchBar
 					placeholder="Search community initiatives"
@@ -136,12 +135,14 @@
 					</div>
 				</SearchBar>
 			</div>
-			<div class="py-2 flex gap-2 flex-wrap">
+			<div
+				class="py-2 flex gap-2 overflow-x-auto scrollbar:!w-1 scrollbar:!h-1 scrollbar:bg-transparent scrollbar-track:!bg-gray-200 scrollbar-thumb:!rounded scrollbar-thumb:!bg-blue-300 scrollbar-track:!rounded supports-scrollbars:pr-2"
+			>
 				{#each tags as tag}
 					<TagComponent promoted={false} href={`/tag/${tag.slug}`}>{tag.title}</TagComponent>
 				{/each}
 			</div>
-			<div class="border-b border-blue-300 my-2" />
+			<div class="md:border-b border-blue-300 my-2" />
 		</div>
 	</div>
 	<div class="flex-grow pb-8">

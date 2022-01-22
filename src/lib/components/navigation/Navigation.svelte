@@ -6,7 +6,7 @@
 	let _hoverID = -1;
 </script>
 
-<header class="flex justify-center relative">
+<header class="flex justify-center relative z-50">
 	<div class="max-w-screen-lg w-full flex justify-between md:justify-start relative my-4">
 		<div>
 			<a href="/" class="flex items-center">

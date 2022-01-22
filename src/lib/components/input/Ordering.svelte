@@ -13,7 +13,7 @@
 	export let order: string;
 </script>
 
-<div class="md:flex w-full md:w-auto items-center justify-center">
+<div class="md:flex w-full md:w-auto items-center justify-center z-20 relative">
 	<div class="relative md:inline-block text-left dropdown">
 		<span class="rounded-md shadow-sm"
 			><button
@@ -44,25 +44,25 @@
 			>
 				<div class="py-1">
 					<button
-						on:click={() => goto($page.path)}
+						on:click={() => goto($page.url.pathname)}
 						class="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"
 					>
 						Newest
 					</button>
 					<button
-						on:click={() => goto(`${$page.path}?sort=_createdAt&order=asc`)}
+						on:click={() => goto(`${$page.url.pathname}?sort=_createdAt&order=asc`)}
 						class="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"
 					>
 						Oldest
 					</button>
 					<button
-						on:click={() => goto(`${$page.path}?sort=title&order=desc`)}
+						on:click={() => goto(`${$page.url.pathname}?sort=title&order=desc`)}
 						class="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"
 					>
 						Name descending
 					</button>
 					<button
-						on:click={() => goto(`${$page.path}?sort=title&order=asc`)}
+						on:click={() => goto(`${$page.url.pathname}?sort=title&order=asc`)}
 						class="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left"
 					>
 						Name ascending

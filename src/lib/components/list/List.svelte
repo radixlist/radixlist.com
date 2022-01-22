@@ -8,10 +8,10 @@
 </script>
 
 <main class="flex justify-center">
-	<div class="max-w-screen-lg w-full md:grid grid-cols-4 gap-4">
+	<div class="max-w-screen-lg w-full md:grid grid-cols-4 gap-2">
 		{#if items.length > 0}
-			<div class="col-span-3">
-				<div class="flex flex-col md:flex-row justify-between md:items-end">
+			<div class="col-span-3 flex flex-col gap-y-2">
+				<div class="flex flex-col md:flex-row justify-between items-center md:items-end">
 					{#if numberOfItems > 1}
 						<span class="italic font-mulish text-sm order-last mt-2 md:order-first"
 							>Found {numberOfItems} results</span
@@ -24,10 +24,8 @@
 					{/if}
 					<slot name="ordering" />
 				</div>
-				{#each items as item}
-					<div class="py-4">
-						<ItemComponent {item} />
-					</div>
+				{#each items as item (item._id)}
+					<ItemComponent {item} />
 				{/each}
 				{#if numberOfItems > 20}
 					<slot name="pagination" />

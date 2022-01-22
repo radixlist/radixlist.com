@@ -10,7 +10,14 @@ const config = {
 		}
 	},
 
-	plugins: []
+	plugins: [
+		function ({ addVariant }) {
+			addVariant('supports-scrollbars', '@supports selector(::-webkit-scrollbar)');
+			addVariant('scrollbar', '&::-webkit-scrollbar');
+			addVariant('scrollbar-track', '&::-webkit-scrollbar-track');
+			addVariant('scrollbar-thumb', '&::-webkit-scrollbar-thumb');
+		}
+	]
 };
 
 module.exports = config;

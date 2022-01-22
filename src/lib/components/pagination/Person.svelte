@@ -3,7 +3,7 @@
 	export let slug: string;
 	export let pageNumber: number;
 	export let numberOfItems: number;
-	const query = $page.query.toString() ? `${$page.query.toString()}` : '';
+	$: query = $page.url.searchParams.toString() ? `?${$page.url.searchParams.toString()}` : '';
 </script>
 
 <div class="flex flex-col items-center my-12">

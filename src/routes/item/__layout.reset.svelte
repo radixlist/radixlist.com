@@ -34,7 +34,7 @@
 	<div class="bg-gradient-to-t from-white to-transparent w-full h-full" />
 </div>
 
-<div class="h-full px-4 flex flex-col relative">
+<div class="h-full px-2 flex flex-col relative">
 	<Navigation />
 	<div class="flex-grow pb-8">
 		<slot />

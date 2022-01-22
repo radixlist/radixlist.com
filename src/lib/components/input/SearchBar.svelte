@@ -91,7 +91,7 @@
 	/>
 	{#if !autocompleteHidden}
 		<div
-			class="absolute rounded-md -m-1 bg-white border border-gray-300 shadow-lg z-10"
+			class="absolute rounded-md -m-1 bg-white border border-gray-300 shadow-lg z-40"
 			style={autocompleteStyles}
 		>
 			<div class="grid grid-cols-1 md:grid-cols-3 p-4">
