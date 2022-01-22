@@ -5,7 +5,6 @@
 	export const load: Load = async ({ params }) => {
 		try {
 			const result = await sanity.ItemBySlugQuery(params.slug);
-			console.log(result, ~~(Math.random() * result.promotedItems.length));
 			return {
 				status: 200,
 				props: {
@@ -76,17 +75,7 @@
 				</div>
 			</div>
 		</div>
-		{#if promotedItem}
-			<div class="py-4">
-				<ItemComponent item={promotedItem} />
-			</div>
-		{/if}
-		<div
-			class="md:mt-8 border-b border-blue-300 font-mulish text-2xl pb-2"
-			class:mt-4={!promotedItem}
-		>
-			Overview
-		</div>
+		<div class="md:mt-8 border-b border-blue-300 font-mulish text-2xl pb-2 mt-4">Overview</div>
 		<div class="portable-block break-words">
 			<PortableText blocks={item.description} />
 		</div>
@@ -128,7 +117,13 @@
 				</a>
 			{/each}
 		</div>
-		<div class="mt-4 md:mt-8 border-b border-blue-300 font-mulish text-2xl pb-2">Warning ⚠️</div>
+		{#if promotedItem}
+			<div class="mt-4 md:mt-8 border-b border-blue-300 font-mulish text-2xl pb-2">Promotion</div>
+			<div class="py-4">
+				<ItemComponent item={promotedItem} />
+			</div>
+		{/if}
+		<div class="mt-4 md:mt-4 border-b border-blue-300 font-mulish text-2xl pb-2">Warning ⚠️</div>
 		<div class="flex flex-col md:flex-row flex-wrap gap-4">
 			<p class="py-2">
 				Radix List does not vet or verify projects that gets listed. It's important that you are
