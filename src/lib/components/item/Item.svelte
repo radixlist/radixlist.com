@@ -16,7 +16,7 @@
 			<div
 				class="absolute w-full h-full z-0 top-0 left-0 flex justify-center items-center overflow-hidden"
 			>
-				{#if item.promotionBackground}
+				{#if item.promotionBackground.url}
 					<img src={item.promotionBackground.url} alt="background" class="min-w-[1022px]" />
 				{/if}
 				<div class="w-full h-full bg-pink-100 absolute top-0 left-0 opacity-80" />
