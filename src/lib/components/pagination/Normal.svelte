@@ -2,7 +2,8 @@
 	import { page } from '$app/stores';
 	export let pageNumber: number;
 	export let numberOfItems: number;
-	$: query = $page.query.toString() ? `?${$page.query.toString()}` : '';
+	export let limit: number = 20;
+	$: query = $page.url.searchParams.toString() ? `?${$page.url.searchParams.toString()}` : '';
 </script>
 
 <div class="flex flex-col items-center my-12">
@@ -29,7 +30,7 @@
 			</a>
 		{/if}
 		<div class="flex h-12 font-medium rounded-full bg-gray-200">
-			{#each Array(Math.ceil(numberOfItems / 20)) as _, index}
+			{#each Array(Math.ceil(numberOfItems / limit)) as _, index}
 				<a
 					href={`/page/${index + 1}${query}`}
 					class="w-12 md:flex justify-center items-center hidden  cursor-pointer leading-5 transition duration-150 ease-in rounded-full"
@@ -39,7 +40,7 @@
 				</a>
 			{/each}
 		</div>
-		{#if pageNumber < Math.ceil(numberOfItems / 20)}
+		{#if pageNumber < Math.ceil(numberOfItems / limit)}
 			<a
 				href={`/page/${pageNumber + 1}${query}`}
 				class="h-12 w-12 ml-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer"

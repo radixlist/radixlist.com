@@ -2,20 +2,19 @@
 	import type { Load } from '@sveltejs/kit';
 	import sanity from '$lib/sanity';
 
-	export const load: Load = async ({ page }) => {
+	export const load: Load = async ({ url, params }) => {
 		try {
-			const pageNumber = parseInt(page.params.page);
+			const pageNumber = parseInt(params.page);
 			if (pageNumber === 1) {
-				const queryParam = page.query.toString() ? `?${page.query.toString()}` : '';
+				const queryParam = url.searchParams.toString() ? `?${url.searchParams.toString()}` : '';
 				return {
 					status: 302,
 					redirect: `/${queryParam}`
 				};
 			}
 
-			const { query } = page;
-			const sort = query.get('sort') ?? '_createdAt';
-			const order = query.get('order') ?? 'desc';
+			const sort = url.searchParams.get('sort') ?? '_createdAt';
+			const order = url.searchParams.get('order') ?? 'desc';
 			const result = await sanity.ItemsQuery({ page: pageNumber, limit: 20 }, `${sort} ${order}`);
 
 			return {

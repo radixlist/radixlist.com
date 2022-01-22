@@ -11,7 +11,9 @@ export type Item = {
 	tags: Tag[];
 	image: {
 		url: string;
-		caption: string;
+	};
+	promotionBackground: {
+		url: string;
 	};
 	shortDescription: string;
 	description: PortableTextBlocks;
@@ -31,6 +33,7 @@ export type ItemsResponse = {
 
 export type ItemResponse = {
 	item: Item;
+	promotedItems: Item[];
 };
 
 export type PaginationInput = {
@@ -47,7 +50,7 @@ export const Items = (
 	const end = (paginationInput.page - 1) * paginationInput.limit + paginationInput.limit - 1;
 	return groq`
   {
-    'items': *[_type == 'item'] | order(${order}) | order(coalesce(count(promoted[expires >= '${today}']) > 0, false) desc) [${start}..${end}] {
+    'items': *[_type == 'item' && !(coalesce(count(promoted[expires >= '${today}']) > 0, false) && coalesce(count(promoted[slot == 'banner']) > 0, false))] | order(${order}) | order((coalesce(count(promoted[expires >= '${today}']) > 0, false) && coalesce(count(promoted[slot == 'page1-2']) > 0, false)) desc) | order((coalesce(count(promoted[expires >= '${today}']) > 0, false) && coalesce(count(promoted[slot == 'page1-1']) > 0, false)) desc) [${start}..${end}] {
       _id,
       _updatedAt,
       title,
@@ -56,8 +59,10 @@ export const Items = (
       'description': coalesce(description, []),
       'tags': tags[]->{ _id, title, featured, 'slug': slug.current },
       'image': {
-        'url': image.asset->url,
-        'caption': image.asset->url
+        'url': image.asset->url
+      },
+      'promotionBackground': {
+        'url': promotionBackground.asset->url
       },
       'owners': coalesce(owners[]->{
         name,
@@ -74,6 +79,47 @@ export const Items = (
       'promoted': coalesce(count(promoted[expires >= '${today}']) > 0, false)
     },
     'numberOfItems': count(*[_type == 'item'])
+  }
+  `;
+};
+
+export const BannerItem = (
+	paginationInput: PaginationInput = { page: 1, limit: 20 },
+	order: string = '_createdAt desc'
+): string => {
+	const today = new Date().toISOString().split('T')[0];
+	const start = Math.max((paginationInput.page - 1) * paginationInput.limit, 0);
+	const end = (paginationInput.page - 1) * paginationInput.limit + paginationInput.limit - 1;
+	return groq`
+  {
+    'items': *[_type == 'item' && (coalesce(count(promoted[expires >= '${today}']) > 0, false) && coalesce(count(promoted[slot == 'banner']) > 0, false))][0] {
+      _id,
+      _updatedAt,
+      title,
+      'slug': slug.current,
+      'shortDescription': coalesce(shortDescription, ''),
+      'description': coalesce(description, []),
+      'tags': tags[]->{ _id, title, featured, 'slug': slug.current },
+      'image': {
+        'url': image.asset->url
+      },
+      'promotionBackground': {
+        'url': promotionBackground.asset->url
+      },
+      'owners': coalesce(owners[]->{
+        name,
+        wallet,
+        discordHandle,
+        twitter,
+        telegram
+      }, []),
+      'links': coalesce(links[]{
+        'url': url,
+        'title': coalesce(title, linkType->title),
+        'image': linkType->icon.asset->url
+      }, []),
+      'promoted': coalesce(count(promoted[expires >= '${today}']) > 0, false)
+    }
   }
   `;
 };
@@ -97,8 +143,10 @@ export const ItemsByTag = (
       'description': coalesce(description, []),
       'tags': tags[]->{ _id, title, featured, 'slug': slug.current },
       'image': {
-        'url': image.asset->url,
-        'caption': image.asset->url
+        'url': image.asset->url
+      },
+      'promotionBackground': {
+        'url': promotionBackground.asset->url
       },
       'owners': coalesce(owners[]->{
         name,
@@ -138,8 +186,10 @@ export const ItemsByPerson = (
       'description': coalesce(description, []),
       'tags': tags[]->{ _id, title, featured, 'slug': slug.current },
       'image': {
-        'url': image.asset->url,
-        'caption': image.asset->url
+        'url': image.asset->url
+      },
+      'promotionBackground': {
+        'url': promotionBackground.asset->url
       },
       'owners': coalesce(owners[]->{
         name,
@@ -173,8 +223,38 @@ export const ItemBySlug = (slug: string): string => {
       'description': coalesce(description, []),
       'tags': tags[]->{ _id, title, featured, 'slug': slug.current },
       'image': {
-        'url': image.asset->url,
-        'caption': image.asset->url
+        'url': image.asset->url
+      },
+      'promotionBackground': {
+        'url': promotionBackground.asset->url
+      },
+      'owners': coalesce(owners[]->{
+        name,
+        wallet,
+        discordHandle,
+        twitter,
+        telegram
+      }, []),
+      'links': coalesce(links[]{
+        'url': url,
+        'title': coalesce(title, linkType->title),
+        'image': linkType->icon.asset->url
+      }, []),
+      'promoted': coalesce(count(promoted[expires >= '${today}']) > 0, false)
+    },
+    'promotedItems': *[_type == 'item' && (coalesce(count(promoted[expires >= '${today}']) > 0, false) && coalesce(count(promoted[slot == 'item-page']) > 0, false))] {
+      _id,
+      _updatedAt,
+      title,
+      'slug': slug.current,
+      'shortDescription': coalesce(shortDescription, ''),
+      'description': coalesce(description, []),
+      'tags': tags[]->{ _id, title, featured, 'slug': slug.current },
+      'image': {
+        'url': image.asset->url
+      },
+      'promotionBackground': {
+        'url': promotionBackground.asset->url
       },
       'owners': coalesce(owners[]->{
         name,

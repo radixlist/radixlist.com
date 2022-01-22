@@ -2,10 +2,10 @@
 	import type { Load } from '@sveltejs/kit';
 	import sanity from '$lib/sanity';
 
-	export const load: Load = async ({ page: { query }, session }) => {
+	export const load: Load = async ({ url }) => {
 		try {
-			const sort = query.get('sort') ?? '_createdAt';
-			const order = query.get('order') ?? 'desc';
+			const sort = url.searchParams.get('sort') ?? '_createdAt';
+			const order = url.searchParams.get('order') ?? 'desc';
 			const result = await sanity.ItemsQuery({ page: 1, limit: 20 }, `${sort} ${order}`);
 
 			return {

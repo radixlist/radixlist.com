@@ -2,13 +2,12 @@
 	import type { Load } from '@sveltejs/kit';
 	import sanity from '$lib/sanity';
 
-	export const load: Load = async ({ page }) => {
+	export const load: Load = async ({ url, params }) => {
 		try {
-			const slug = page.params.slug;
-			const pageNumber = parseInt(page.params.page);
-			const { query } = page;
-			const sort = query.get('sort') ?? '_createdAt';
-			const order = query.get('order') ?? 'desc';
+			const slug = params.slug;
+			const pageNumber = parseInt(params.page);
+			const sort = url.searchParams.get('sort') ?? '_createdAt';
+			const order = url.searchParams.get('order') ?? 'desc';
 			const result = await sanity.ItemsByTagQuery(
 				slug,
 				{ page: pageNumber, limit: 20 },
