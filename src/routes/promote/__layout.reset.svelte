@@ -2,7 +2,7 @@
 	import type { Load } from '@sveltejs/kit';
 	import sanity from '$lib/sanity';
 
-	export const load: Load = async ({ page }) => {
+	export const load: Load = async ({ url, params }) => {
 		try {
 			const result = await sanity.FeaturedTagsQuery();
 
