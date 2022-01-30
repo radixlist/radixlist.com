@@ -1,5 +1,6 @@
-<script>
+<script lang="ts">
 	import Breadcrumb from '$lib/components/breadcrumb/Breadcrumb.svelte';
+	import Telegram from '$assets/Telegram.svg';
 </script>
 
 <svelte:head>
@@ -35,14 +36,14 @@
 			<div class="py-2 text-l">
 				<a href="https://t.me/Kansuler"
 					class="text-gray-800 hover:text-zinc-500 cursor-pointer block">
-					<img src="/src/assets/Telegram.svg" class="w-4 h-4 inline" alt="icon" />
+					<img src={Telegram} class="w-4 h-4 inline" alt="icon" />
 					Kansuler
 				</a>
 			</div>
 			<div class="py-2 text-l">
 				<a href="https://t.me/chris_pica"
 					class="text-gray-800 hover:text-zinc-500 cursor-pointer block">
-					<img src="/src/assets/Telegram.svg" class="w-4 h-4 inline" alt="icon" />
+					<img src={Telegram} class="w-4 h-4 inline" alt="icon" />
 					Chris | pica.finance
 				</a>
 			</div>
