@@ -1135,6 +1135,11 @@ esbuild-windows-arm64@0.13.15:
   resolved "https://registry.yarnpkg.com/esbuild-windows-arm64/-/esbuild-windows-arm64-0.13.15.tgz#482173070810df22a752c686509c370c3be3b3c3"
   integrity sha512-zzvyCVVpbwQQATaf3IG8mu1IwGEiDxKkYUdA4FpoCHi1KtPa13jeScYDjlW0Qh+ebWzpKfR2ZwvqAQkSWNcKjA==
 
+esbuild@^0.12.28:
+  version "0.12.29"
+  resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.12.29.tgz#be602db7c4dc78944a9dbde0d1ea19d36c1f882d"
+  integrity sha512-w/XuoBCSwepyiZtIRsKsetiLDUVGPVw1E/R3VTFSecIy8UR7Cq3SOtwKHJMFoVqqVG36aGkzh4e8BvpO1Fdc7g==
+
 esbuild@^0.13.12, esbuild@^0.13.15:
   version "0.13.15"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.13.15.tgz#db56a88166ee373f87dbb2d8798ff449e0450cdf"
@@ -2259,6 +2264,13 @@ supports-color@^7.1.0:
   integrity sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==
   dependencies:
     has-flag "^4.0.0"
+
+svelte-adapter-firebase@^0.13.1:
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/svelte-adapter-firebase/-/svelte-adapter-firebase-0.13.1.tgz#8a490204b465a205d170c292cf558c93f63af9bf"
+  integrity sha512-fEUCH8nLO0LkW8QnCQKZYgs8jHLf1Q9pxRzD0Iv+iNZHTiU+oEchxrSFi3f6tDeotKnG6u3te5RceIiqq3rQmw==
+  dependencies:
+    esbuild "^0.12.28"
 
 svelte-check@^2.2.6:
   version "2.2.11"
