@@ -100,11 +100,10 @@ jobs:
         id: outputs
         run: |
           echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
-          echo "::set-output name=url::https://$(git rev-parse --short HEAD)-${{ env.SERVICE_NAME }}.run"
 
       - name: Deploy Cloud Run service
         uses: 'google-github-actions/deploy-cloudrun@v0'
         with:
-          service: ${{ steps.deploy.outputs.sha_short }}-${{ env.SERVICE_NAME }}
+          service: '${{ steps.deploy.outputs.sha_short }}-${{ env.SERVICE_NAME }}'
           image: 'gcr.io/${{ secrets.DEVELOPMENT_PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}'
           region: 'eu-west-3'
