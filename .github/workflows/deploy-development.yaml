@@ -104,6 +104,7 @@ jobs:
           region: 'eu-west-3'
 
       - name: Set outputs
+        id: outputs
         run: |-
           echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
           echo "::set-output name=url::https://$(git rev-parse --short HEAD)-${{ env.SERVICE_NAME }}.run"
