@@ -75,7 +75,6 @@ jobs:
         run: |-
           docker push gcr.io/${{ secrets.DEVELOPMENT_PROJECT_ID }}/${{ env.SERVICE_NAME }}:$GITHUB_SHA
 
-      - name: Set URL
   deploy:
     needs: publish
     runs-on: ubuntu-latest
@@ -105,7 +104,6 @@ jobs:
           region: 'eu-west-3'
 
       - name: Set outputs
-        id: vars
         run: |-
           echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
           echo "::set-output name=url::https://$(git rev-parse --short HEAD)-${{ env.SERVICE_NAME }}.run"
