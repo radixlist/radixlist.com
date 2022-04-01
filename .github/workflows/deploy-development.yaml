@@ -97,13 +97,15 @@ jobs:
         uses: 'google-github-actions/setup-gcloud@v0'
 
       - name: Set outputs
-        id: outputs
+        id: sha
         run: |
           echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
 
       - name: Deploy Cloud Run service
+        id: deploy
         uses: 'google-github-actions/deploy-cloudrun@v0'
         with:
-          service: '${{ git rev-parse --short HEAD }}-${{ env.SERVICE_NAME }}'
+          service: '${{ env.SERVICE_NAME }}'
+          suffix: ${{ steps.sha.outputs.sha_short }}
           image: 'gcr.io/${{ secrets.DEVELOPMENT_PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}'
           region: 'eu-west-3'
