@@ -4,10 +4,6 @@ on:
   pull_request:
     branches: [main]
 
-env:
-  SERVICE_NAME: radixlist-web
-  DEVELOPMENT_PROJECT_ID: radix-list-development
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -105,7 +101,7 @@ jobs:
         id: deploy
         uses: 'google-github-actions/deploy-cloudrun@v0'
         with:
-          service: '${{ env.SERVICE_NAME }}'
+          service: '${{ secrets.SERVICE_NAME }}'
           suffix: ${{ steps.sha.outputs.sha_short }}
-          image: 'gcr.io/${{ env.DEVELOPMENT_PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ github.sha }}'
-          region: 'eu-west-3'
+          image: 'gcr.io/${{ secrets.DEVELOPMENT_PROJECT_ID }}/${{ secrets.SERVICE_NAME }}:${{ github.sha }}'
+          region: 'europe-west-3'
