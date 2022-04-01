@@ -80,7 +80,7 @@ jobs:
     environment:
       name: development
       url: |-
-        https://${{ github.sha }}-${{ secrets.SERVICE_NAME }}.com
+        https://${{ github.sha }}.com
     steps:
       - name: Checkout
         uses: 'actions/checkout@v3'
