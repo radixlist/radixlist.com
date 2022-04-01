@@ -79,7 +79,8 @@ jobs:
       id-token: write
     environment:
       name: development
-      url: https://${{ github.sha }}-${{ secrets.SERVICE_NAME }}.com
+      url: |-
+        https://${{ github.sha }}-${{ secrets.SERVICE_NAME }}.com
     steps:
       - name: Checkout
         uses: 'actions/checkout@v3'
