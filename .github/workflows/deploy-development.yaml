@@ -6,7 +6,7 @@ on:
 
 env:
   SERVICE_NAME: radixlist-web
-  DEVELOPMENT_PROJECT_ID: ${{ secrets.DEVELOPMENT_PROJECT_ID }}
+  DEVELOPMENT_PROJECT_ID: radix-list-development
 
 jobs:
   build:
