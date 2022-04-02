@@ -104,4 +104,4 @@ jobs:
           service: '${{ secrets.SERVICE_NAME }}'
           suffix: ${{ steps.sha.outputs.sha_short }}
           image: 'gcr.io/${{ secrets.DEVELOPMENT_PROJECT_ID }}/${{ secrets.SERVICE_NAME }}:${{ github.sha }}'
-          region: 'europe-west-3'
+          region: 'europe-west3'
