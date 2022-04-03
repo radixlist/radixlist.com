@@ -1,23 +1,21 @@
-name: 'nightly artifacts cleanup'
+name: Clean Artifacts
+
 on:
   schedule:
-    - cron: '0 1 * * *' # every night at 1 am UTC
+    # Every day at 1am
+    - cron: '0 1 * * *'
   workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-          - info
-          - warning
-          - debug
+
 jobs:
-  delete-artifacts:
+  remove-old-artifacts:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
-      - uses: kolpav/purge-artifacts-action@v1
+      - name: Remove old artifacts
+        uses: c-hive/gha-remove-artifacts@v1
         with:
-          token: $
-          expire-in: 7days # Set this to 0 to delete all artifacts
+          age: '1 day' # '<number> <unit>', e.g. 5 days, 2 years, 90 seconds, parsed by Moment.js
+          # Optional inputs
+          # skip-tags: true
+          # skip-recent: 5
