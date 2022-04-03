@@ -3,7 +3,16 @@ on:
   schedule:
     - cron: '0 1 * * *' # every night at 1 am UTC
   workflow_dispatch:
-
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+          - info
+          - warning
+          - debug
 jobs:
   delete-artifacts:
     runs-on: ubuntu-latest
