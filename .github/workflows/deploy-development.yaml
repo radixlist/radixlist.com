@@ -63,7 +63,7 @@ jobs:
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
         with:
-          credentials_json: ${{ secret.DEVELOPMENT_SERVICE_ACCOUNT }}
+          credentials_json: ${{ secrets.DEVELOPMENT_SERVICE_ACCOUNT }}
 
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v0'
