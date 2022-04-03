@@ -13,8 +13,11 @@ RUN yarn build
 
 FROM alpine:latest
 WORKDIR /dist
+ENV PORT 8080
 RUN apk add --no-cache tzdata
-RUN apk update && apk add nodejs && rm -rf /var/cache/apk/*
-COPY --from=Builder /src ./
-EXPOSE 3000
+RUN apk update && apk add nodejs yarn && rm -rf /var/cache/apk/*
+COPY --from=Builder /src/build ./build
+COPY package.json yarn.lock ./
+RUN yarn install --production --frozen-lockfile
+EXPOSE 8080
 ENTRYPOINT ["node", "./build/index.js"]
