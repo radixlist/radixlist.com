@@ -79,6 +79,10 @@ jobs:
   deploy:
     needs: publish
     runs-on: ubuntu-latest
+    outputs:
+      url: ${{ steps.url.outputs.url }}
+      short-sha: ${{ env.GITHUB_SHA_SHORT }}
+      ref-slug: ${{ env.GITHUB_REF_SLUG_URL }}
     permissions:
       contents: read
       id-token: write
