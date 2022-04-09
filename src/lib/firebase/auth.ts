@@ -5,6 +5,7 @@ import {
 	onAuthStateChanged,
 	setPersistence,
 	browserLocalPersistence,
+	updateProfile,
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 	signInWithRedirect,
@@ -18,11 +19,13 @@ import {
 } from 'firebase/auth';
 import { newMessage } from '$lib/components/notifications/store';
 import firebase from './firebase';
-import { writable } from 'svelte/store';
+import { writable, get } from 'svelte/store';
 
 type AuthMethod = 'google' | 'facebook' | 'twitter' | 'apple' | 'github' | 'microsoft';
 
 export const session = writable<User | Record<string, unknown>>({});
+
+
 
 class Authentication {
 	private readonly auth: Auth;
@@ -32,6 +35,7 @@ class Authentication {
 	constructor() {
 		this.auth = getAuth(firebase.client);
 
+		// This method listens to firebase auth state change, and updates the session store.
 		onAuthStateChanged(this.auth, (user) => {
 			if (user) {
 				session.update(() => user);
@@ -67,6 +71,7 @@ class Authentication {
 	// Use this flow to sign in with email and password.
 	public async signInWithEmailAndPassword(email: string, password: string): Promise<void> {
 		try {
+			await setPersistence(this.auth, browserLocalPersistence);
 			await signInWithEmailAndPassword(this.auth, email, password);
 		} catch (error) {
 			newMessage(
@@ -82,12 +87,10 @@ class Authentication {
 	// Use this method to start login flow with Google.
 	public async signInWithGoogle(): Promise<void> {
 		try {
-			window.sessionStorage.setItem('authMethod', 'google');
-			const provider = new GoogleAuthProvider();
 			await setPersistence(this.auth, browserLocalPersistence);
+			const provider = new GoogleAuthProvider();
 			await signInWithRedirect(this.auth, provider);
 		} catch (error) {
-			window.sessionStorage.removeItem('authMethod');
 			newMessage(
 				'Authentication.signInWithGoogle',
 				'error',
@@ -101,12 +104,10 @@ class Authentication {
 	// Use this method to start login flow with Facebook.
 	public async signInWithFacebook(): Promise<void> {
 		try {
-			window.sessionStorage.setItem('authMethod', 'facebook');
-			const provider = new FacebookAuthProvider();
 			await setPersistence(this.auth, browserLocalPersistence);
+			const provider = new FacebookAuthProvider();
 			await signInWithRedirect(this.auth, provider);
 		} catch (error) {
-			window.sessionStorage.removeItem('authMethod');
 			newMessage(
 				'Authentication.signInWithFacebook',
 				'error',
@@ -120,12 +121,10 @@ class Authentication {
 	// Use this method to start login flow with Twitter.
 	public async signInWithTwitter(): Promise<void> {
 		try {
-			window.sessionStorage.setItem('authMethod', 'twitter');
-			const provider = new TwitterAuthProvider();
 			await setPersistence(this.auth, browserLocalPersistence);
+			const provider = new TwitterAuthProvider();
 			await signInWithRedirect(this.auth, provider);
 		} catch (error) {
-			window.sessionStorage.removeItem('authMethod');
 			newMessage(
 				'Authentication.signInWithTwitter',
 				'error',
@@ -139,12 +138,10 @@ class Authentication {
 	// Use this method to start login flow with GitHub.
 	public async signInWithGithub(): Promise<void> {
 		try {
-			window.sessionStorage.setItem('authMethod', 'github');
-			const provider = new FacebookAuthProvider();
 			await setPersistence(this.auth, browserLocalPersistence);
+			const provider = new GithubAuthProvider();
 			await signInWithRedirect(this.auth, provider);
 		} catch (error) {
-			window.sessionStorage.removeItem('authMethod');
 			newMessage(
 				'Authentication.signInWithGithub',
 				'error',
@@ -155,40 +152,13 @@ class Authentication {
 		}
 	}
 
-	// This method is called to catch a redirect after attempting to sign in.
-	public async getRedirectResult(): Promise<boolean> {
-		const authMethod = window.sessionStorage.getItem('authMethod') as AuthMethod;
-		if (!authMethod) {
-			return false;
-		}
+	// Use this method to sign out.
+	public async signOut(): Promise<void> {
 		try {
-			const result = await getRedirectResult(this.auth);
-			switch (authMethod) {
-				case 'google':
-					GoogleAuthProvider.credentialFromResult(result);
-					break;
-				case 'facebook':
-					FacebookAuthProvider.credentialFromResult(result);
-					break;
-				case 'twitter':
-					TwitterAuthProvider.credentialFromResult(result);
-					break;
-				case 'github':
-					GithubAuthProvider.credentialFromResult(result);
-					break;
-				case 'apple':
-					// TODO: Implement Apple Auth
-					break;
-				case 'microsoft':
-					// TODO: Implement Microsoft Auth
-					break;
-			}
-			window.sessionStorage.removeItem('authMethod');
-			console.log('Authentication.getRedirectResult', result);
-			return true;
+			await signOut(this.auth);
 		} catch (error) {
 			newMessage(
-				'Authentication.catchRedirectResult',
+				'Authentication.Logout',
 				'error',
 				ErrorMessage[error.code] ?? error.message,
 				error.stack,
@@ -197,12 +167,18 @@ class Authentication {
 		}
 	}
 
-	public async signOut(): Promise<void> {
+	// Use this method to update display name of current user.
+	public async updateDisplayName(displayName: string): Promise<void> {
 		try {
-			await signOut(this.auth);
+			const user = get(session) as User;
+			if (Object.keys(user).length === 0) {
+				throw new Error('User is not logged in.');
+			}
+
+			await updateProfile(user, { displayName });
 		} catch (error) {
 			newMessage(
-				'Authentication.Logout',
+				'Authentication.updateDisplayName',
 				'error',
 				ErrorMessage[error.code] ?? error.message,
 				error.stack,
