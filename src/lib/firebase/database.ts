@@ -1,5 +1,5 @@
 import type { Firestore } from 'firebase/firestore/lite';
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { getFirestore } from 'firebase/firestore/lite';
 import firebase from './firebase';
 
 class Database {
@@ -20,4 +20,4 @@ class Database {
 	}
 }
 
-export default Database.getInstance;
+export default Database.getInstance as Database;

@@ -33,7 +33,3 @@ export const newMessage = (
 };
 
 export const messages = writable<Message[]>([]);
-
-messages.subscribe((value) => {
-	console.log($messages, value);
-});

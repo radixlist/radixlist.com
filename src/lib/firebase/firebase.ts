@@ -1,6 +1,5 @@
 import type { FirebaseApp, FirebaseOptions } from 'firebase/app';
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
 import { env } from '$lib/helpers/env';
 
 class Firebase {
@@ -30,4 +29,4 @@ class Firebase {
 	}
 }
 
-export default Firebase.getInstance;
+export default Firebase.getInstance as Firebase;
