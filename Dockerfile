@@ -1,23 +1,18 @@
-# Possibility to specify which image to use for building
-ARG FROM_IMAGE=node:16-alpine
-
-# Build server stage
-FROM $FROM_IMAGE as Builder
-WORKDIR /src
-ARG VITE_SANITY_PROJECT_ID
-ARG VITE_SANITY_DATASET
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+# Build stage
+FROM node:18.6 as builder
+WORKDIR /builder
 COPY . .
+RUN yarn
 RUN yarn build
+RUN rm -rf node_modules
+RUN yarn install --production
 
-FROM alpine:latest
-WORKDIR /dist
-ENV PORT 8080
-RUN apk add --no-cache tzdata
-RUN apk update && apk add nodejs yarn && rm -rf /var/cache/apk/*
-COPY --from=Builder /src/build ./build
-COPY package.json yarn.lock ./
-RUN yarn install --production --frozen-lockfile
-EXPOSE 8080
-ENTRYPOINT ["node", "./build/index.js"]
+# Runtime
+FROM node:18.6-alpine
+WORKDIR /app
+COPY --from=builder /builder/node_modules /app/node_modules
+COPY --from=builder /builder/package.json /app/package.json
+COPY --from=builder /builder/build /app/build
+
+EXPOSE 3000
+CMD ["node", "./build"]
