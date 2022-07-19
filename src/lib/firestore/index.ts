@@ -1,6 +1,5 @@
 import type { FirebaseApp } from 'firebase/app';
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
 import AuthHandler from './auth';
 import FirestoreHandler from './firestore';
 
@@ -39,5 +38,4 @@ class FirestoreFactory {
 	}
 }
 
-const Instance: FirestoreFactory = FirestoreFactory.getInstance;
-export default Instance;
+export default FirestoreFactory.getInstance;

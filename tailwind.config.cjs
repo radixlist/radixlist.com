@@ -8,15 +8,15 @@ const config = {
 	theme: {
 		extend: {
 			fontFamily: {
-				'roboto': ['roboto', 'sans-serif'],
-				'montserrat': ['montserrat', 'sans-serif'],
-				'alegreya': ['alegreya', 'serif'],
+				roboto: ['roboto', 'sans-serif'],
+				montserrat: ['montserrat', 'sans-serif'],
+				alegreya: ['alegreya', 'serif'],
 				'alegreya-sc': ['alegreya-sc', 'serif'],
 				'source-code-pro': ['source-code-pro', 'monospace'],
 				'acumin-pro': ['acumin-pro', 'sans-serif'],
 				'acumin-pro-condensed': ['acumin-pro-condensed', 'sans-serif'],
 				'acumin-pro-extra-condensed': ['acumin-pro-extra-condensed', 'sans-serif'],
-				'sans': ['roboto', ...defaultTheme.fontFamily.sans],
+				sans: ['roboto', ...defaultTheme.fontFamily.sans]
 			}
 		}
 	},
